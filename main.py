@@ -5,29 +5,28 @@ from sklearn.metrics import r2_score
 
 #load the data
 data = pd.read_csv('data.csv')
+countries = data['country'].unique()
 
-#get user input for country and year
-countryChoice = input("Enter country you want to predict renewable electricity consumption for: ")
-yearChoice = int(input("Enter year you want to predict renewable electricity consumption for: "))  
-
-#filter the data based on the user input
-filteredData = data[data['country'] == countryChoice]
-filteredData.dropna(subset=['year', 'renewables_electricity'], inplace=True)
-
-#perform polynomial regression
-x = filteredData.year.astype(int)
-y = filteredData.renewables_electricity
-mymodel = np.poly1d(np.polyfit(x, y, 3))
-
-#predicted energy consumption for the user input year
-predicted_y = mymodel(yearChoice)
-
-#measures how tight the fit is to plot line
-r_squared = r2_score(y, mymodel(x))
-print("R-squared score:", r_squared)
-
-print(f"Predicted renewable electricity consumption for {countryChoice} in {yearChoice}: {predicted_y} terawatt hours")
-
+def createData():
+    for country in countries:
+        # Filter the data based on the user input country
+        filteredData = data[data['country'] == country]
+        # Drop NaN values in 'year' and 'renewables_electricity' columns
+        filteredData.dropna(subset=['year', 'renewables_electricity'], inplace=True)
+        # Check if there are any valid data points left after dropping NaN values
+        if filteredData.empty:
+            print(f"No valid data available for {country}")
+            continue  # Skip to the next country if no valid data
+        startYear = 2024
+        x = filteredData.year.astype(int)
+        y = filteredData.renewables_electricity
+        
+        for i in range(0, 100):
+            mymodel = np.poly1d(np.polyfit(x, y, 3))
+            predicted_y = mymodel(i + startYear)
+            r_squared = r2_score(y, mymodel(x))
+            print("R-squared score:", r_squared)
+            print(f"Predicted renewable electricity consumption for {country} in {i + startYear}: {predicted_y} terawatt hours")
 #function to plot the data and the predicted value 
 def plot_data():
   plt.scatter(x, y, color="black")
@@ -39,5 +38,4 @@ def plot_data():
   plt.legend()
   plt.show()
 
-
-#def createData():
+createData()

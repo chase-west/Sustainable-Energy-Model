@@ -4,11 +4,10 @@ from dotenv import load_dotenv
 
 #retrieve MongoDB credentials from environment variables
 load_dotenv()
-MongoUserName = os.getenv("MONGO_USERNAME")
-MongoPW = os.getenv("MONGO_PASSWORD")
+MONGO_URI = os.getenv("MONGO_URI")
 
 # MongoDB connection URI
-uri = f"mongodb+srv://{MongoUserName}:{MongoPW}@cluster0.sppfhvv.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+uri = MONGO_URI
 
 # Create a MongoDB client
 client = MongoClient(uri)

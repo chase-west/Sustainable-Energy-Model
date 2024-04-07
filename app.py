@@ -25,7 +25,6 @@ def index():
 def get_renewable_data():
     country_name = request.args.get('country')
     year = int(request.args.get('year'))
-
     result = collection.find_one({'country': country_name, 'year': year}, {'_id': 0, 'predicted_renewable_electricity': 1})
     if result:
         return jsonify(result), 200

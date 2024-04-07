@@ -28,7 +28,6 @@ countryMesh.addEventListener('click', async () => {
 
       if (predictedValue !== null) {
           console.log(`Predicted renewable electricity for ${countryName} in ${specificYear}: ${predictedValue} terawatt hours`);
-
           //change color of countryObject based on predicted value + show amount of energy 
           //implement
       } else {

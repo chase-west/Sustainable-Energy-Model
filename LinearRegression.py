@@ -12,7 +12,7 @@ MongoUserName = os.getenv("MONGO_USERNAME")
 MongoPW = os.getenv("MONGO_PASSWORD")
 
 # MongoDB connection URI
-uri = f"mongodb+srv://{MongoUserName}:{MongoPW}@cluster0.sppfhvv.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+uri = os.getenv("MONGO_URI")
 
 # Create a MongoDB client
 client = MongoClient(uri)
@@ -20,8 +20,9 @@ client = MongoClient(uri)
 # Access or create a database
 db = client['mydatabase']
 
-# Access or create a collection
+# Access collection
 collection = db['renewable_electricity']
+
 
 # Load the data
 data = pd.read_csv('data.csv')
@@ -58,15 +59,7 @@ def create_and_store_data():
         collection.insert_many(predicted_data)
         print(f"Predicted data for {country} stored in MongoDB")
 
-def get_renewable_data(country_name, year):
-    # Query MongoDB for data of the specified country and year
-    cursor = collection.find({'country': country_name, 'year': year}, {'_id': 0, 'predicted_renewable_electricity': 1})
 
-    # Extract the data into a list of dictionaries
-    renewable_energy_data = [data['predicted_renewable_electricity'] for data in cursor]
-
-
-    return renewable_energy_data
 
 
 def plot_data(country):
@@ -75,6 +68,7 @@ def plot_data(country):
     y = filtered_data.renewables_electricity
     mymodel = np.poly1d(np.polyfit(x, y, 3))
     
+    #plot data
     plt.scatter(x, y, color='blue', label='Actual Data')
     plt.plot(x, mymodel(x), color='red', label='Predicted Data')
     plt.xlabel('Year')
@@ -85,5 +79,4 @@ def plot_data(country):
 
 
 #create_and_store_data()
-print(get_renewable_data('United States', 2024))
 #plot_data('United States')

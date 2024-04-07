@@ -13,7 +13,7 @@ const loader = new GLTFLoader();
 let object;
 
 loader.load(
-  `model/low_poly_earth.glb`,
+  `/static/model/low_poly_earth.glb`,
   function (gltf) {
     object = gltf.scene;
 
@@ -25,7 +25,7 @@ loader.load(
     });
     object.traverse((child) => {
       if (child instanceof THREE.Mesh && child.material.name === "water") {
-        //dhange water material color to blue
+        //change water material color to blue
         child.material.color.set(0x0000A5); //blue color
       }
     });

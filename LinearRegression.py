@@ -8,8 +8,6 @@ from dotenv import load_dotenv
 
 #retrieve MongoDB credentials from environment variables
 load_dotenv()
-MongoUserName = os.getenv("MONGO_USERNAME")
-MongoPW = os.getenv("MONGO_PASSWORD")
 
 # MongoDB connection URI
 uri = os.getenv("MONGO_URI")

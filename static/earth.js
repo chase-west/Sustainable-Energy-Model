@@ -18,7 +18,6 @@ loader.load(
     const object = gltf.scene;
     scene.add(object);
 
-    // Assuming "COUNTRIES__Landmass_" is a child object within the loaded model
     const countriesLandmass = object.getObjectByName('COUNTRIES__Landmass_');
 
     if (countriesLandmass) {
@@ -26,8 +25,8 @@ loader.load(
       const mouse = new THREE.Vector2();
 
       renderer.domElement.addEventListener('click', async (event) => {
-        mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-        mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+        mouse.x = ( (event.clientX -renderer.domElement.offsetLeft) / renderer.domElement.width ) * 2 - 1;
+        mouse.y = -( (event.clientY - renderer.domElement.offsetTop) / renderer.domElement.height ) * 2 + 1;
     
         raycaster.setFromCamera(mouse, camera);
     

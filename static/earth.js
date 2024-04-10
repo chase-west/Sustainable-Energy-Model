@@ -13,7 +13,7 @@ document.body.appendChild(renderer.domElement);
 const loader = new GLTFLoader();
 
 loader.load(
-  '/static/model/mapModel.glb',
+  '/static/model/updatedMap.glb',
   function (gltf) {
     const object = gltf.scene;
     scene.add(object);
@@ -38,24 +38,15 @@ loader.load(
             const parentObject = clickedObject.parent;
     
             if (parentObject) {
+              if (parentObject.name.includes ('_') ) {
+                  parentObject.name = parentObject.name.replace("_", " ")
+              }
+
+
                 let year = 2024;
-                // Check if the parent object's name matches 'USA'
-                if (parentObject.name === 'USA') {
-                    // Perform custom handling for 'USA'
-                    const customCountryName = 'United States'; // Rename for further operations
-                    console.log(`Clicked on parent object: ${customCountryName}`);
-                    // Fetch renewable data for the renamed country
-                    try {
-                        const renewableData = await fetchRenewableData(customCountryName, year);
-                        console.log('Renewable Data:', renewableData);
-                    } catch (error) {
-                        console.error('Error fetching renewable data:', error);
-                    }
-                } else {
                     console.log(`Clicked on parent object: ${parentObject.name}`);
                     const renewableData = await fetchRenewableData(parentObject.name, year);
                     console.log('Renewable Data:', renewableData);
-                }
             }
         }
     });} else {

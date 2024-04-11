@@ -5,15 +5,33 @@ import { fetchRenewableData } from "./app.js";
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-const renderer = new THREE.WebGLRenderer();
+const renderer = new THREE.WebGLRenderer();ar:
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
 // Load GLTF model
 const loader = new GLTFLoader();
 
+// Function to update the slider value based on the selected year
+function updateSliderYear(newYear) {
+  document.getElementById('yearValue').textContent = newYear; // Update the slider value
+}
+
+//Get year from year slider
+let year = 2024;
+const yearSlider = document.getElementById('yearSlider');
+
+// Event listener for slider input
+yearSlider.addEventListener('input', () => {
+  year = parseInt(yearSlider.value); // Update year based on slider value
+  updateSliderYear(year);
+});
+
+
+
+
 loader.load(
-  '/static/model/updatedMap.glb',
+  '/static/model/mapModel.glb',
   function (gltf) {
     const object = gltf.scene;
     scene.add(object);
@@ -35,14 +53,29 @@ loader.load(
         if (intersects.length > 0) {
             const clickedObject = intersects[0].object;
             const parentObject = clickedObject.parent;
-    
+
             if (parentObject) {
               if (parentObject.name.includes ('_') ) {
+                  for (let i =0; i <parentObject.name.length; i++) {
                   parentObject.name = parentObject.name.replace("_", " ")
+                  }
               }
-
-
-                let year = 2024;
+              //Fix counties with different landmasses
+              const countryMap = {
+                "Hawaii": "United States",
+                "Alaska": "United States",
+                "Galapagos": "Ecuador",
+                "South Georgia": "United Kingdom",
+                "Svalbard": "Norway",
+                "Heard Island": "Australia",
+                "Kerguelen Islands": "France",
+                "Adaman And Nicobar Islands": "India"
+              };
+              
+              // Check if the parentObject.name exists in the countryMap
+              if (countryMap.hasOwnProperty(parentObject.name)) {
+                parentObject.name = countryMap[parentObject.name];
+              }
                     console.log(`Clicked on parent object: ${parentObject.name}`);
                     const renewableData = await fetchRenewableData(parentObject.name, year);
                     console.log('Renewable Data:', renewableData);

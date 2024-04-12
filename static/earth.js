@@ -5,27 +5,37 @@ import { fetchRenewableData } from "./app.js";
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-const renderer = new THREE.WebGLRenderer();ar:
+const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
 // Load GLTF model
 const loader = new GLTFLoader();
 
+// Define an object to map country names to their respective year values
+const countryYears = {};
+
+// Function to update the year for a specific country
+function updateCountryYear(countryName, newYear) {
+  countryYears[countryName] = newYear;
+}
+
+// Function to get the year for a specific country (defaults to current year if not set)
+function getCountryYear(countryName) {
+  return countryYears[countryName] || new Date().getFullYear(); // Default to current year if year is not set
+}
+
 // Function to update the slider value based on the selected year
 function updateSliderYear(newYear) {
   document.getElementById('yearValue').textContent = newYear; // Update the slider value
 }
 
-//Get year from year slider
-let year = 2024;
-const yearSlider = document.getElementById('yearSlider');
-
-// Event listener for slider input
-yearSlider.addEventListener('input', () => {
-  year = parseInt(yearSlider.value); // Update year based on slider value
-  updateSliderYear(year);
-});
+function displaySlider() {
+  const sliderContainers = document.getElementsByClassName('sliderContainer');
+  Array.from(sliderContainers).forEach(container => {
+    container.style.display = 'block';
+  });
+}
 
 
 
@@ -53,13 +63,28 @@ loader.load(
         if (intersects.length > 0) {
             const clickedObject = intersects[0].object;
             const parentObject = clickedObject.parent;
-
+            
+            //Parent Object is country name
             if (parentObject) {
               if (parentObject.name.includes ('_') ) {
                   for (let i =0; i <parentObject.name.length; i++) {
                   parentObject.name = parentObject.name.replace("_", " ")
                   }
               }
+              displaySlider();
+              let year = getCountryYear(parentObject.name); // Get the year for the selected country
+              // Event listener for slider input
+              yearSlider.addEventListener('input', () => {
+                year = parseInt(yearSlider.value); // Parse the slider value to an integer
+                const selectedCountry = parentObject.name; // Get the name of the selected country
+                
+                if (selectedCountry) {
+                  updateCountryYear(selectedCountry, year); // Update the year for the selected country
+                  updateSliderYear(year); // Update the displayed year on the slider
+                }
+              });
+              
+
               //Fix counties with different landmasses
               const countryMap = {
                 "Hawaii": "United States",
@@ -71,14 +96,11 @@ loader.load(
                 "Kerguelen Islands": "France",
                 "Adaman And Nicobar Islands": "India"
               };
-              
-              // Check if the parentObject.name exists in the countryMap
-              if (countryMap.hasOwnProperty(parentObject.name)) {
-                parentObject.name = countryMap[parentObject.name];
-              }
-                    console.log(`Clicked on parent object: ${parentObject.name}`);
+
+              console.log(`Clicked on parent object: ${parentObject.name}`);
                     const renewableData = await fetchRenewableData(parentObject.name, year);
                     console.log('Renewable Data:', renewableData);
+                    
             }
         }
     });} else {

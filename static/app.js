@@ -1,6 +1,5 @@
-export { fetchRenewableData };
 //function to fetch renewable energy data from Flask backend
-function fetchRenewableData(countryName, year) {
+export async function fetchRenewableData(countryName, year) {
   const url = `/renewable-data?country=${countryName}&year=${year}`;
 
   return fetch(url)

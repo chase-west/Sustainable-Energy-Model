@@ -64,6 +64,21 @@ loader.load(
             const clickedObject = intersects[0].object;
             const parentObject = clickedObject.parent;
             
+              //Fix counties with different landmasses
+              const countryMap = {
+                "Hawaii": "United States",
+                "Alaska": "United States",
+                "Galapagos": "Ecuador",
+                "South Georgia": "United Kingdom",
+                "Svalbard": "Norway",
+                "Heard Island": "Australia",
+                "Kerguelen Islands": "France",
+                "Adaman And Nicobar Islands": "India"
+              };
+              if (countryMap.hasOwnProperty(parentObject.name)) {
+                parentObject.name = countryMap[parentObject.name];
+              }
+            
             //Parent Object is country name
             if (parentObject) {
               if (parentObject.name.includes ('_') ) {
@@ -83,19 +98,6 @@ loader.load(
                   updateSliderYear(year); // Update the displayed year on the slider
                 }
               });
-              
-
-              //Fix counties with different landmasses
-              const countryMap = {
-                "Hawaii": "United States",
-                "Alaska": "United States",
-                "Galapagos": "Ecuador",
-                "South Georgia": "United Kingdom",
-                "Svalbard": "Norway",
-                "Heard Island": "Australia",
-                "Kerguelen Islands": "France",
-                "Adaman And Nicobar Islands": "India"
-              };
 
               console.log(`Clicked on parent object: ${parentObject.name}`);
                     const renewableData = await fetchRenewableData(parentObject.name, year);

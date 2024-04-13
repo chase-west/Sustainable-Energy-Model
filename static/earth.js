@@ -90,6 +90,7 @@ loader.load(
           const clickedObject = intersects[0].object;
           let selectedCountry = clickedObject.parent.name;
 
+          // Replace underscores with spaces in the country name
           selectedCountry = selectedCountry.replace(/_/g, ' ');
           
           if (selectedCountry in countryMap) {

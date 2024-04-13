@@ -22,7 +22,23 @@ function updateCountryYear(countryName, newYear) {
 
 // Function to get the year for a specific country (defaults to current year if not set)
 function getCountryYear(countryName) {
+  console.log(countryYears[countryName]);
   return countryYears[countryName] || new Date().getFullYear(); // Default to current year if year is not set
+}
+
+function resetSlider(countryName) {
+  const slider = document.getElementById('yearSlider');
+  let year = new Date().getFullYear(); // Default to current year if year is not set
+  if (countryName in countryMap) {
+    year = getCountryYear(countryMap[countryName]);
+    slider.value = year;
+    document.getElementById('yearValue').textContent = year;
+  }
+  else {
+     slider.value = year;
+     document.getElementById('yearValue').textContent = year;
+  }
+
 }
 
 // Function to update the slider value based on the selected year
@@ -72,14 +88,16 @@ loader.load(
 
         if (intersects.length > 0) {
           const clickedObject = intersects[0].object;
-          const parentObject = clickedObject.parent;
+          let selectedCountry = clickedObject.parent.name;
 
-          if (parentObject) {
-            if (parentObject.name.includes('_')) {
-              parentObject.name = parentObject.name.replace(/_/g, ' '); // Replace all underscores with spaces globally
+          resetSlider(selectedCountry);
+
+          if (selectedCountry) {
+            if (selectedCountry.includes('_')) {
+              selectedCountry = selectedCountry.replace(/_/g, ' '); // Replace all underscores with spaces globally
             }
             displaySlider();
-            let year = getCountryYear(parentObject.name); // Get the year for the selected country
+            let year = getCountryYear(selectedCountry); // Get the year for the selected country
 
             // Event listener for slider input
             yearSlider.addEventListener('input', async () => {
@@ -87,14 +105,13 @@ loader.load(
             clearTimeout(sliderTimer); // Clear previous timer if exists
 
             year = parseInt(yearSlider.value); // Parse the slider value to an integer
-            const selectedCountry = parentObject.name; // Get the name of the selected country
 
             updateSliderYear(year); // Update the displayed year on the slider
-            
+
               sliderTimer = setTimeout(async () => {
                   if (selectedCountry) {
                     updateCountryYear(selectedCountry, year); // Update the year for the selected country
-                    console.log(`Clicked on parent object: ${parentObject.name}`);
+                    console.log(`Clicked on parent object: ${selectedCountry}`);
               
                     // Use await inside an async function to fetch data
                     try {

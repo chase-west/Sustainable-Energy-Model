@@ -22,15 +22,16 @@ function updateCountryYear(countryName, newYear) {
 
 // Function to get the year for a specific country (defaults to current year if not set)
 function getCountryYear(countryName) {
-  console.log(countryYears[countryName]);
-  return countryYears[countryName] || new Date().getFullYear(); // Default to current year if year is not set
+  return countryYears[countryName];
 }
 
 function resetSlider(countryName) {
   const slider = document.getElementById('yearSlider');
   let year = new Date().getFullYear(); // Default to current year if year is not set
-  if (countryName in countryMap) {
-    year = getCountryYear(countryMap[countryName]);
+
+  if (countryName in countryYears) {
+    year = countryYears[countryName];
+    console.log('Year:', year);
     slider.value = year;
     document.getElementById('yearValue').textContent = year;
   }
@@ -38,7 +39,6 @@ function resetSlider(countryName) {
      slider.value = year;
      document.getElementById('yearValue').textContent = year;
   }
-
 }
 
 // Function to update the slider value based on the selected year
@@ -90,12 +90,15 @@ loader.load(
           const clickedObject = intersects[0].object;
           let selectedCountry = clickedObject.parent.name;
 
+          selectedCountry = selectedCountry.replace(/_/g, ' ');
+          
+          if (selectedCountry in countryMap) {
+            selectedCountry = countryMap[selectedCountry];
+          }
+
           resetSlider(selectedCountry);
 
           if (selectedCountry) {
-            if (selectedCountry.includes('_')) {
-              selectedCountry = selectedCountry.replace(/_/g, ' '); // Replace all underscores with spaces globally
-            }
             displaySlider();
             let year = getCountryYear(selectedCountry); // Get the year for the selected country
 

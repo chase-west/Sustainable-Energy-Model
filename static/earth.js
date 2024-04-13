@@ -83,10 +83,14 @@ loader.load(
 
             // Event listener for slider input
             yearSlider.addEventListener('input', async () => {
+
             clearTimeout(sliderTimer); // Clear previous timer if exists
+
             year = parseInt(yearSlider.value); // Parse the slider value to an integer
             const selectedCountry = parentObject.name; // Get the name of the selected country
+
             updateSliderYear(year); // Update the displayed year on the slider
+            
               sliderTimer = setTimeout(async () => {
                   if (selectedCountry) {
                     updateCountryYear(selectedCountry, year); // Update the year for the selected country

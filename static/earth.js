@@ -81,10 +81,8 @@ loader.load(
             
             //Parent Object is country name
             if (parentObject) {
-              if (parentObject.name.includes ('_') ) {
-                  for (let i =0; i <parentObject.name.length; i++) {
-                  parentObject.name = parentObject.name.replace("_", " ")
-                  }
+              if (parentObject.name.includes('_')) {
+                parentObject.name = parentObject.name.replace(/_/g, ' '); // Replace all underscores with spaces globally
               }
               displaySlider();
               let year = getCountryYear(parentObject.name); // Get the year for the selected country

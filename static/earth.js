@@ -37,7 +37,7 @@ function displaySlider() {
   });
 }
 
-const yearSlider = document.getElementById('yearSlider'); // Assuming you have an input element with id 'yearSlider'
+const yearSlider = document.getElementById('yearSlider');
 let sliderTimer;
 const countryMap = {
   "Hawaii": "United States",
@@ -100,7 +100,7 @@ loader.load(
                       console.error('Error fetching renewable data:', error);
                     }
                   }
-                }, 500); // Delay in milliseconds before executing the function
+                }, 300); // Delay in milliseconds before executing the function
               });
           }
         }
@@ -135,7 +135,7 @@ scene.add(directionalLight);
 camera.position.set(0, 3, 0); // Place the camera above the scene looking down
 camera.lookAt(scene.position); // Point the camera at the center of the scene
 
-// Orbit controls for easy navigation
+//navigation
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableZoom = true; // Allow zooming with mouse wheel
 controls.enablePan = true; // Allow panning with mouse drag

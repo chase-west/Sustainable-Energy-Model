@@ -37,8 +37,18 @@ function displaySlider() {
   });
 }
 
-
-
+const yearSlider = document.getElementById('yearSlider'); // Assuming you have an input element with id 'yearSlider'
+let sliderTimer;
+const countryMap = {
+  "Hawaii": "United States",
+  "Alaska": "United States",
+  "Galapagos": "Ecuador",
+  "South Georgia": "United Kingdom",
+  "Svalbard": "Norway",
+  "Heard Island": "Australia",
+  "Kerguelen Islands": "France",
+  "Andaman And Nicobar Islands": "India"
+};
 
 loader.load(
   '/static/model/mapModel.glb',
@@ -52,58 +62,50 @@ loader.load(
       const raycaster = new THREE.Raycaster();
       const mouse = new THREE.Vector2();
 
-      renderer.domElement.addEventListener('click', async (event) => {
-        mouse.x = ( (event.clientX -renderer.domElement.offsetLeft) / renderer.domElement.width ) * 2 - 1;
-        mouse.y = -( (event.clientY - renderer.domElement.offsetTop) / renderer.domElement.height ) * 2 + 1;
-    
-        raycaster.setFromCamera(mouse, camera);
-    
-        const intersects = raycaster.intersectObject(countriesLandmass, true);
-    
-        if (intersects.length > 0) {
-            const clickedObject = intersects[0].object;
-            const parentObject = clickedObject.parent;
-            
-              //Fix counties with different landmasses
-              const countryMap = {
-                "Hawaii": "United States",
-                "Alaska": "United States",
-                "Galapagos": "Ecuador",
-                "South Georgia": "United Kingdom",
-                "Svalbard": "Norway",
-                "Heard Island": "Australia",
-                "Kerguelen Islands": "France",
-                "Adaman And Nicobar Islands": "India"
-              };
-              if (countryMap.hasOwnProperty(parentObject.name)) {
-                parentObject.name = countryMap[parentObject.name];
-              }
-            
-            //Parent Object is country name
-            if (parentObject) {
-              if (parentObject.name.includes('_')) {
-                parentObject.name = parentObject.name.replace(/_/g, ' '); // Replace all underscores with spaces globally
-              }
-              displaySlider();
-              let year = getCountryYear(parentObject.name); // Get the year for the selected country
-              // Event listener for slider input
-              yearSlider.addEventListener('input', () => {
-                year = parseInt(yearSlider.value); // Parse the slider value to an integer
-                const selectedCountry = parentObject.name; // Get the name of the selected country
-                
-                if (selectedCountry) {
-                  updateCountryYear(selectedCountry, year); // Update the year for the selected country
-                  updateSliderYear(year); // Update the displayed year on the slider
-                }
-              });
+      renderer.domElement.addEventListener('click', (event) => {
+        mouse.x = ((event.clientX - renderer.domElement.offsetLeft) / renderer.domElement.width) * 2 - 1;
+        mouse.y = -((event.clientY - renderer.domElement.offsetTop) / renderer.domElement.height) * 2 + 1;
 
-              console.log(`Clicked on parent object: ${parentObject.name}`);
-                    const renewableData = await fetchRenewableData(parentObject.name, year);
-                    console.log('Renewable Data:', renewableData);
-                    
+        raycaster.setFromCamera(mouse, camera);
+
+        const intersects = raycaster.intersectObject(countriesLandmass, true);
+
+        if (intersects.length > 0) {
+          const clickedObject = intersects[0].object;
+          const parentObject = clickedObject.parent;
+
+          if (parentObject) {
+            if (parentObject.name.includes('_')) {
+              parentObject.name = parentObject.name.replace(/_/g, ' '); // Replace all underscores with spaces globally
             }
+            displaySlider();
+            let year = getCountryYear(parentObject.name); // Get the year for the selected country
+
+            // Event listener for slider input
+            yearSlider.addEventListener('input', async () => {
+            clearTimeout(sliderTimer); // Clear previous timer if exists
+            year = parseInt(yearSlider.value); // Parse the slider value to an integer
+            const selectedCountry = parentObject.name; // Get the name of the selected country
+            updateSliderYear(year); // Update the displayed year on the slider
+              sliderTimer = setTimeout(async () => {
+                  if (selectedCountry) {
+                    updateCountryYear(selectedCountry, year); // Update the year for the selected country
+                    console.log(`Clicked on parent object: ${parentObject.name}`);
+              
+                    // Use await inside an async function to fetch data
+                    try {
+                      const renewableData = await fetchRenewableData(selectedCountry, year);
+                      console.log('Renewable Data:', renewableData);
+                    } catch (error) {
+                      console.error('Error fetching renewable data:', error);
+                    }
+                  }
+                }, 500); // Delay in milliseconds before executing the function
+              });
+          }
         }
-    });} else {
+      });
+    } else {
       console.warn('Empty object "COUNTRIES__Landmass_" not found in the loaded model');
     }
   },

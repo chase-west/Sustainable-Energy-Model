@@ -75,6 +75,15 @@ loader.load(
     const countriesLandmass = object.getObjectByName('COUNTRIES__Landmass_');
 
     if (countriesLandmass) {
+
+      countriesLandmass.traverse(child => {
+        if (child.isMesh) {
+          // Apply a new material or color to each child mesh
+          child.material = new THREE.MeshBasicMaterial({ color: 0x006b3e });
+          // You can also use: child.material.color.set(0x028e41);
+        }
+      });
+
       const raycaster = new THREE.Raycaster();
       const mouse = new THREE.Vector2();
 
@@ -88,6 +97,7 @@ loader.load(
 
         if (intersects.length > 0) {
           const clickedObject = intersects[0].object;
+          highlightCountry(clickedObject);
           let selectedCountry = clickedObject.parent.name;
 
           // Replace underscores with spaces in the country name
@@ -147,6 +157,23 @@ window.addEventListener('resize', () => {
   camera.updateProjectionMatrix();
   renderer.setSize(window.innerWidth, window.innerHeight);
 });
+
+
+let currentHighlightedCountry = null;
+const highlightMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000, transparent: true, opacity: 0.5 });
+
+function highlightCountry(countryObject) {
+  if (currentHighlightedCountry !== countryObject) {
+    // Reset material of previously highlighted country
+    if (currentHighlightedCountry) {
+      currentHighlightedCountry.material = new THREE.MeshBasicMaterial({ color: countryObject.material.color });
+    }
+
+    // Apply highlight material to the clicked country
+    countryObject.material = highlightMaterial;
+    currentHighlightedCountry = countryObject;
+  }
+}
 
 // Set up lights
 const ambientLight = new THREE.AmbientLight(0xffffff, 0.8); // Soft white ambient light

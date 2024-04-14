@@ -1,14 +1,37 @@
-html {
-  background-color: black;
-}
-
-body {
+html, body {
   width: 100%;
   height: 100%;
+  margin: 0;
+  padding: 0;
   overflow: hidden;
+  background-color: black;
+  color: white;
+  font-family: Roboto;
 }
 
-.sliderContainer {
-  color: white;
-  margin-left: 2em;
+.canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.slider-container {
+  margin: 20px;
+  font-size: 1.5em;
+}
+
+.renewable-energy-display {
+  margin-top: 10px;
+}
+
+input[type="range"] {
+  width: 5%;
+  margin-left: 10px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .slider-container {
+    font-size: 1.2em;
+  }
 }

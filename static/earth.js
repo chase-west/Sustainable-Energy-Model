@@ -72,7 +72,7 @@ function updateSliderYear(newYear) {
 }
 
 function displaySlider() {
-  const sliderContainers = document.getElementsByClassName('sliderContainer');
+  const sliderContainers = document.getElementsByClassName('slider-container');
   Array.from(sliderContainers).forEach(container => {
     container.style.display = 'block';
   });

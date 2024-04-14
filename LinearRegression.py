@@ -78,3 +78,30 @@ def plot_data(country):
 
 #create_and_store_data()
 #plot_data('United States')
+
+#get highest renewable energy value out of every country in the data
+def get_highest_renewable_energy():
+    pipeline = [
+        {
+            '$group': {
+                '_id': '$country',
+                'max_renewable_energy': {
+                    '$max': '$predicted_renewable_electricity'
+                }
+            }
+        },
+        {
+            '$sort': {
+                'max_renewable_energy': -1  # Sort by highest predicted renewable energy value first
+            }
+        }
+    ]
+    
+    result = collection.aggregate(pipeline)
+    
+    for doc in result:
+        country = doc['_id']
+        max_renewable_energy = doc['max_renewable_energy']
+        print(f"Country: {country}, Highest Predicted Renewable Energy: {max_renewable_energy:.2f} TWh")
+
+get_highest_renewable_energy()

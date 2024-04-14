@@ -3,16 +3,23 @@ import { OrbitControls } from "https://cdn.skypack.dev/three@0.129.0/examples/js
 import { GLTFLoader } from "https://cdn.skypack.dev/three@0.129.0/examples/jsm/loaders/GLTFLoader.js";
 import { fetchRenewableData } from "./app.js";
 import { Fetch2024CountryData } from "./app.js";
+
+//Create necessary variables
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 const renderer = new THREE.WebGLRenderer();
+let energy = 0;
+const renewableEnergyValue = document.getElementById('renewableEnergyValue');
+const yearSlider = document.getElementById('yearSlider');
+let sliderTimer;
+
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
 // Load GLTF model
 const loader = new GLTFLoader();
 
-// Define an object to map country names to their respective year values
+//Maps to store country data with each value
 const countryYears = {};
 const countryData = {};
 const countryColors = {};
@@ -34,28 +41,24 @@ function getCountryYear(countryName) {
 //function resetSlider(countryName) 
 
 function resetUI(countryName) {
-  const renewableEnergyValue = document.getElementById('renewableEnergyValue');
-  let energy = 0;
-
   if (countryName in countryData) {
     energy = countryData[countryName];
-    renewableEnergyValue.textContent = energy;
+    renewableEnergyValue.textContent = energy + ' TWh';
   }
   else {
-     renewableEnergyValue.textContent = energy;
+     renewableEnergyValue.textContent = energy + ' TWh';
   }
-
-  const slider = document.getElementById('yearSlider');
+  
   let year = new Date().getFullYear(); // Default to current year if year is not set
 
   if (countryName in countryYears) {
     year = countryYears[countryName];
     //console.log('Year:', year);
-    slider.value = year;
+    yearSlider.value = year;
     document.getElementById('yearValue').textContent = year;
   }
   else {
-     slider.value = year;
+    yearSlider.value = year;
      document.getElementById('yearValue').textContent = year;
   }
 }
@@ -66,7 +69,7 @@ function resetUI(countryName) {
 function updateCountryData(countryName, renewableData) {
   const renewableDisplay = document.getElementById('renewableEnergyValue');
   renewableDisplay.textContent = renewableData + ' TWh';
-    countryData[countryName] = renewableData;
+  countryData[countryName] = renewableData;
 }
 
 // Function to update the slider value based on the selected year
@@ -84,9 +87,6 @@ function displaySlider() {
     container.style.display = 'none';
   });
 }
-
-const yearSlider = document.getElementById('yearSlider');
-let sliderTimer;
 const countryMap = {
   "Hawaii": "United States",
   "Alaska": "United States",

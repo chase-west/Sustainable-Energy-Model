@@ -2,7 +2,7 @@ import * as THREE from "https://cdn.skypack.dev/three@0.129.0";
 import { OrbitControls } from "https://cdn.skypack.dev/three@0.129.0/examples/jsm/controls/OrbitControls.js";
 import { GLTFLoader } from "https://cdn.skypack.dev/three@0.129.0/examples/jsm/loaders/GLTFLoader.js";
 import { fetchRenewableData } from "./app.js";
-
+import { Fetch2024CountryData } from "./app.js";
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 const renderer = new THREE.WebGLRenderer();
@@ -60,10 +60,10 @@ function resetCountryData(countryName) {
   }
 }
 
-function updateCountryData(countryName, renewableData) {
+function updateCountryData(countryName, renewableData, year) {
   const renewableDisplay = document.getElementById('renewableEnergyValue');
   renewableDisplay.textContent = renewableData + ' TWh';
-  countryData[countryName] = renewableData;
+    countryData[countryName] = renewableData;
 }
 
 // Function to update the slider value based on the selected year
@@ -93,7 +93,8 @@ const countryMap = {
   "Heard Island": "Australia",
   "Kerguelen Islands": "France",
   "Andaman And Nicobar Islands": "India",
-  "Kashmir": "India"
+  "Kashmir": "India",
+  "Czech Rep": "Czechia"
 };
 
 loader.load(
@@ -116,7 +117,7 @@ loader.load(
       const raycaster = new THREE.Raycaster();
       const mouse = new THREE.Vector2();
 
-      renderer.domElement.addEventListener('click', (event) => {
+      renderer.domElement.addEventListener('click', async (event) => {
         mouse.x = ((event.clientX - renderer.domElement.offsetLeft) / renderer.domElement.width) * 2 - 1;
         mouse.y = -((event.clientY - renderer.domElement.offsetTop) / renderer.domElement.height) * 2 + 1;
 
@@ -128,17 +129,25 @@ loader.load(
           
           let selectedCountry = clickedObject.parent.name;
            // Replace underscores with spaces in the country name
-          selectedCountry = selectedCountry.replace(/_/g, ' ');
 
+          selectedCountry = selectedCountry.replace(/_/g, ' ');
+          console.log(`Clicked on parent object: ${selectedCountry}`);
           // Fix country name if in countryMap
           if (selectedCountry in countryMap) {
             selectedCountry = countryMap[selectedCountry];
           }
 
+          if (countryYears[selectedCountry] === undefined) {
+            console.log(`Fixed country name: ${selectedCountry}`);
+            let country2024Data = await Fetch2024CountryData(selectedCountry);
+            updateCountryData(selectedCountry, country2024Data, 2024);
+            countryYears[selectedCountry] = 2024;
+          }
+
           highlightCountry(clickedObject);
 
           //Check if country doesn't have changed version, if not reset to selected color
-          if (!(selectedCountry in countryData)) {
+          if (countryYears[selectedCountry] === 2024) {
             clickedObject.material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
           }
           //If country has changed version, change color to changed version
@@ -171,9 +180,7 @@ loader.load(
                     // Use await inside an async function to fetch data
                     try {
                       let renewableData = await fetchRenewableData(selectedCountry, year);
-                      renewableData = Math.round(renewableData * 100) / 100; // Round to 2 decimal places
-
-                      updateCountryData(selectedCountry, renewableData);
+                      updateCountryData(selectedCountry, renewableData, year);
                       changeCountryColor(clickedObject, selectedCountry);
                       //console.log('Renewable Data:', renewableData);
                     } catch (error) {

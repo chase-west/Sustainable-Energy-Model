@@ -92,7 +92,8 @@ const countryMap = {
   "Svalbard": "Norway",
   "Heard Island": "Australia",
   "Kerguelen Islands": "France",
-  "Andaman And Nicobar Islands": "India"
+  "Andaman And Nicobar Islands": "India",
+  "Kashmir": "India"
 };
 
 loader.load(

@@ -63,7 +63,7 @@ function resetUI(countryName) {
 
 //function resetCountryData(countryName) 
 
-function updateCountryData(countryName, renewableData, year) {
+function updateCountryData(countryName, renewableData) {
   const renewableDisplay = document.getElementById('renewableEnergyValue');
   renewableDisplay.textContent = renewableData + ' TWh';
     countryData[countryName] = renewableData;
@@ -138,16 +138,16 @@ loader.load(
           if (selectedCountry in countryMap) {
             selectedCountry = countryMap[selectedCountry];
           }
-          if (countryYears[selectedCountry] === undefined) {
+          if (getCountryYear(selectedCountry) === undefined) {
             let country2024Data = await Fetch2024CountryData(selectedCountry);
-            updateCountryData(selectedCountry, country2024Data, 2024);
+            updateCountryData(selectedCountry, country2024Data);
             countryYears[selectedCountry] = 2024;
           }
 
           highlightCountry(clickedObject);
 
           //Check if country doesn't have changed version, if not reset to selected color
-          if (countryYears[selectedCountry] === 2024) {
+          if (getCountryYear(selectedCountry) === 2024) {
             clickedObject.material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
           }
           //If country has changed version, change color to changed version
@@ -155,7 +155,7 @@ loader.load(
             clickedObject.material.color = countryColors[selectedCountry];
           }       
           
-
+          //Reset UI elements 
           resetUI(selectedCountry);
 
           if (selectedCountry) {

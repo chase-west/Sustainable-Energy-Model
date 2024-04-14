@@ -12,6 +12,8 @@ let energy = 0;
 const renewableEnergyValue = document.getElementById('renewableEnergyValue');
 const yearSlider = document.getElementById('yearSlider');
 let sliderTimer;
+const raycaster = new THREE.Raycaster();
+const mouse = new THREE.Vector2();
 
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
@@ -24,68 +26,7 @@ const countryYears = {};
 const countryData = {};
 const countryColors = {};
 
-// Function to update the year for a specific country
-function updateCountryYear(countryName, newYear) {
-  countryYears[countryName] = newYear;
-}
-
-function updateCountryColor(countryName, newColor) {
-  countryColors[countryName] = newColor;
-}
-
-// Function to get the year for a specific country (defaults to current year if not set)
-function getCountryYear(countryName) {
-  return countryYears[countryName];
-}
-
-//function resetSlider(countryName) 
-
-function resetUI(countryName) {
-  if (countryName in countryData) {
-    energy = countryData[countryName];
-    renewableEnergyValue.textContent = energy + ' TWh';
-  }
-  else {
-     renewableEnergyValue.textContent = energy + ' TWh';
-  }
-  
-  let year = new Date().getFullYear(); // Default to current year if year is not set
-
-  if (countryName in countryYears) {
-    year = countryYears[countryName];
-    //console.log('Year:', year);
-    yearSlider.value = year;
-    document.getElementById('yearValue').textContent = year;
-  }
-  else {
-    yearSlider.value = year;
-     document.getElementById('yearValue').textContent = year;
-  }
-}
-
-
-//function resetCountryData(countryName) 
-
-function updateCountryData(countryName, renewableData) {
-  renewableEnergyValue.textContent = renewableData + ' TWh';
-  countryData[countryName] = renewableData;
-}
-
-// Function to update the slider value based on the selected year
-function updateSliderYear(newYear) {
-  document.getElementById('yearValue').textContent = newYear; // Update the slider value
-}
-
-function displaySlider() {
-  const sliderContainers = document.getElementsByClassName('slider-container');
-  Array.from(sliderContainers).forEach(container => {
-    container.style.display = 'block';
-  });
-  const instructionContainer = document.getElementsByClassName('instructions');
-  Array.from(instructionContainer).forEach(container => {
-    container.style.display = 'none';
-  });
-}
+// Country map to map different names of countries to the same name
 const countryMap = {
   "Hawaii": "United States",
   "Alaska": "United States",
@@ -115,9 +56,6 @@ loader.load(
           child.material = new THREE.MeshBasicMaterial({ color: 0x006b3e });
         }
       });
-
-      const raycaster = new THREE.Raycaster();
-      const mouse = new THREE.Vector2();
 
       renderer.domElement.addEventListener('click', async (event) => {
         mouse.x = ((event.clientX - renderer.domElement.offsetLeft) / renderer.domElement.width) * 2 - 1;
@@ -208,9 +146,6 @@ window.addEventListener('resize', () => {
   renderer.setSize(window.innerWidth, window.innerHeight);
 });
 
-
-let currentHighlightedCountry = null;
-const highlightMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000, transparent: true, opacity: 0.5 });
 function changeCountryColor(clickedObject, selectedCountry) {
   // Get renewable energy data
   let renewableData = countryData[selectedCountry];
@@ -235,6 +170,9 @@ function changeCountryColor(clickedObject, selectedCountry) {
   });
 }
 
+//Vars to keep track of highlighted country
+let currentHighlightedCountry = null;
+const highlightMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000, transparent: true, opacity: 0.5 });
 
 function highlightCountry(clickedObject) {
   if (currentHighlightedCountry !== clickedObject) {
@@ -249,6 +187,64 @@ function highlightCountry(clickedObject) {
   }
 }
 
+// Function to update the year for a specific country
+function updateCountryYear(countryName, newYear) {
+  countryYears[countryName] = newYear;
+}
+
+function updateCountryColor(countryName, newColor) {
+  countryColors[countryName] = newColor;
+}
+
+// Function to get the year for a specific country (defaults to current year if not set)
+function getCountryYear(countryName) {
+  return countryYears[countryName];
+}
+
+function resetUI(countryName) {
+  if (countryName in countryData) {
+    energy = countryData[countryName];
+    renewableEnergyValue.textContent = energy + ' TWh';
+  }
+  else {
+     renewableEnergyValue.textContent = energy + ' TWh';
+  }
+  
+  let year = new Date().getFullYear(); // Default to current year if year is not set
+
+  if (countryName in countryYears) {
+    year = countryYears[countryName];
+    yearSlider.value = year;
+    document.getElementById('yearValue').textContent = year;
+  }
+  else {
+    yearSlider.value = year;
+     document.getElementById('yearValue').textContent = year;
+  }
+}
+
+// Function to update the renewable energy data for a specific country
+function updateCountryData(countryName, renewableData) {
+  renewableEnergyValue.textContent = renewableData + ' TWh';
+  countryData[countryName] = renewableData;
+}
+
+// Function to update the slider value based on the selected year
+function updateSliderYear(newYear) {
+  document.getElementById('yearValue').textContent = newYear; // Update the slider value
+}
+// Function to display the slider and hide the instructions
+function displaySlider() {
+  const sliderContainers = document.getElementsByClassName('slider-container');
+  Array.from(sliderContainers).forEach(container => {
+    container.style.display = 'block';
+  });
+  const instructionContainer = document.getElementsByClassName('instructions');
+  Array.from(instructionContainer).forEach(container => {
+    container.style.display = 'none';
+  });
+}
+
 // Set up lights
 const ambientLight = new THREE.AmbientLight(0xffffff, 0.8); // Soft white ambient light
 scene.add(ambientLight);
@@ -261,7 +257,7 @@ scene.add(directionalLight);
 camera.position.set(0, 3, 0); // Place the camera above the scene looking down
 camera.lookAt(scene.position); // Point the camera at the center of the scene
 
-//navigation
+//Navigation
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableZoom = true; // Allow zooming with mouse wheel
 controls.enablePan = true; // Allow panning with mouse drag

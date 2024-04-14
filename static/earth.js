@@ -67,8 +67,7 @@ function resetUI(countryName) {
 //function resetCountryData(countryName) 
 
 function updateCountryData(countryName, renewableData) {
-  const renewableDisplay = document.getElementById('renewableEnergyValue');
-  renewableDisplay.textContent = renewableData + ' TWh';
+  renewableEnergyValue.textContent = renewableData + ' TWh';
   countryData[countryName] = renewableData;
 }
 

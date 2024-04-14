@@ -31,7 +31,20 @@ function getCountryYear(countryName) {
   return countryYears[countryName];
 }
 
-function resetSlider(countryName) {
+//function resetSlider(countryName) 
+
+function resetUI(countryName) {
+  const renewableEnergyValue = document.getElementById('renewableEnergyValue');
+  let energy = 0;
+
+  if (countryName in countryData) {
+    energy = countryData[countryName];
+    renewableEnergyValue.textContent = energy;
+  }
+  else {
+     renewableEnergyValue.textContent = energy;
+  }
+
   const slider = document.getElementById('yearSlider');
   let year = new Date().getFullYear(); // Default to current year if year is not set
 
@@ -47,18 +60,8 @@ function resetSlider(countryName) {
   }
 }
 
-function resetCountryData(countryName) {
-  const renewableEnergyValue = document.getElementById('renewableEnergyValue');
-  let energy = 0;
 
-  if (countryName in countryData) {
-    energy = countryData[countryName];
-    renewableEnergyValue.textContent = energy;
-  }
-  else {
-     renewableEnergyValue.textContent = energy;
-  }
-}
+//function resetCountryData(countryName) 
 
 function updateCountryData(countryName, renewableData, year) {
   const renewableDisplay = document.getElementById('renewableEnergyValue');
@@ -153,8 +156,7 @@ loader.load(
           }       
           
 
-          resetSlider(selectedCountry);
-          resetCountryData(selectedCountry);
+          resetUI(selectedCountry);
 
           if (selectedCountry) {
             displaySlider();

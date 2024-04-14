@@ -40,53 +40,61 @@ const countryMap = {
   "Czech Rep ": "Czechia"
 };
 
+//Load the GLTF model
 loader.load(
   '/static/model/mapModel.glb',
   function (gltf) {
     const object = gltf.scene;
     scene.add(object);
 
+    //Find the countries landmass object in the loaded model
     const countriesLandmass = object.getObjectByName('COUNTRIES__Landmass_');
-
     if (countriesLandmass) {
 
       countriesLandmass.traverse(child => {
         if (child.isMesh) {
-          // Apply a new material or color to each child mesh
+          //Apply a new material or color to each child mesh (make green)
           child.material = new THREE.MeshBasicMaterial({ color: 0x006b3e });
         }
       });
 
+      //Add event listener for mouse click on the renderer
       renderer.domElement.addEventListener('click', async (event) => {
         mouse.x = ((event.clientX - renderer.domElement.offsetLeft) / renderer.domElement.width) * 2 - 1;
         mouse.y = -((event.clientY - renderer.domElement.offsetTop) / renderer.domElement.height) * 2 + 1;
 
+        //Raycast from the camera to the mouse position
         raycaster.setFromCamera(mouse, camera);
         const intersects = raycaster.intersectObject(countriesLandmass, true);
 
+        //If the ray intersects with the object
         if (intersects.length > 0) {
           const clickedObject = intersects[0].object;
-          
-          let selectedCountry = clickedObject.parent.name;
-           // Replace underscores with spaces in the country name
-
+          let selectedCountry = clickedObject.parent.name; //Parent object is the country name
+           
+          // Replace underscores with spaces in the country name
           selectedCountry = selectedCountry.replace(/_/g, ' ');
+
           // Fix country name if in countryMap
           if (selectedCountry in countryMap) {
             selectedCountry = countryMap[selectedCountry];
           }
+
+          //Make displays renewable energy value for 2024
           if (getCountryYear(selectedCountry) === undefined) {
             let country2024Data = await Fetch2024CountryData(selectedCountry);
             updateCountryData(selectedCountry, country2024Data);
             countryYears[selectedCountry] = 2024;
           }
 
+          //Highlight the clicked country
           highlightCountry(clickedObject);
 
-          //Check if country doesn't have changed version, if not reset to selected color
+          //Check if country doesn't have changed version (color adjusted by slider), if not reset to selected color
           if (getCountryYear(selectedCountry) === 2024) {
             clickedObject.material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
           }
+
           //If country has changed version, change color to changed version
           else {
             clickedObject.material.color = countryColors[selectedCountry];
@@ -95,30 +103,35 @@ loader.load(
           //Reset UI elements 
           resetUI(selectedCountry);
 
+          //If the country is selected, display the slider
           if (selectedCountry) {
             displaySlider();
-            let year = getCountryYear(selectedCountry); // Get the year for the selected country
+
+            // Get the year for the selected country
+            let year = getCountryYear(selectedCountry);
 
             // Event listener for slider input
             yearSlider.addEventListener('input', async () => {
 
-            clearTimeout(sliderTimer); // Clear previous timer if exists
+            // Clear previous timer if exists
+            clearTimeout(sliderTimer); 
 
-            year = parseInt(yearSlider.value); // Parse the slider value to an integer
+            // Parse the slider value to an integer
+            year = parseInt(yearSlider.value); 
 
-            updateSliderYear(year); // Update the displayed year on the slider
+            // Update the displayed year on the slider
+            updateSliderYear(year); 
 
+            // Set a timer to fetch renewable data after a delay
               sliderTimer = setTimeout(async () => {
                   if (selectedCountry) {
-                    updateCountryYear(selectedCountry, year); // Update the year for the selected country
-                    //console.log(`Clicked on parent object: ${selectedCountry}`);
+                    updateCountryYear(selectedCountry, year);
               
                     // Use await inside an async function to fetch data
                     try {
                       let renewableData = await fetchRenewableData(selectedCountry, year);
                       updateCountryData(selectedCountry, renewableData, year);
                       changeCountryColor(clickedObject, selectedCountry);
-                      //console.log('Renewable Data:', renewableData);
                     } catch (error) {
                       console.error('Error fetching renewable data:', error);
                     }
@@ -132,6 +145,7 @@ loader.load(
       console.warn('Empty object "COUNTRIES__Landmass_" not found in the loaded model');
     }
   },
+  //Show progress of loading the model
   function (xhr) {
     console.log((xhr.loaded / xhr.total * 100) + '% loaded');
   },
@@ -140,12 +154,14 @@ loader.load(
   }
 );
 
+//Resize the renderer when the window is resized
 window.addEventListener('resize', () => {
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
   renderer.setSize(window.innerWidth, window.innerHeight);
 });
 
+//Function to change the color of a country based on renewable energy data amount
 function changeCountryColor(clickedObject, selectedCountry) {
   // Get renewable energy data
   let renewableData = countryData[selectedCountry];
@@ -245,10 +261,11 @@ function displaySlider() {
   });
 }
 
+/////// Set up the scene ///////
+
 // Set up lights
 const ambientLight = new THREE.AmbientLight(0xffffff, 0.8); // Soft white ambient light
 scene.add(ambientLight);
-
 const directionalLight = new THREE.DirectionalLight(0xffffff, 0.3); // White directional light
 directionalLight.position.set(0, 1, 0); // Position the light directly above the scene
 scene.add(directionalLight);

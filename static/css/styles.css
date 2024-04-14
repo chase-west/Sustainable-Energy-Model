@@ -20,8 +20,24 @@ html, body {
   }
 }
 
+#loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent black background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 2em;
+  z-index: 1000; /* Ensure it appears above other content */
+}
+
 /* Styling for instruction text */
-.instructions {
+#instructions {
+  display: none;
   position: absolute;
   z-index: 1;
   top: 50%;
@@ -67,23 +83,23 @@ input[type="range"] {
   }
 }
 @media screen and (max-width: 1545px){
-  .instructions {
+  #instructions {
     font-size: 2em;
   }
 } 
 
 @media screen and (max-width: 1354px){
-  .instructions {
+  #instructions {
     font-size: 1.5em;
   }
 } 
 @media screen and (max-width: 775px){
-  .instructions {
+  #instructions {
     font-size: 1em;
   }
 } 
 @media screen and (max-width: 524px){
-  .instructions {
+  #instructions {
     font-size: 0.7em;
   }
 } 

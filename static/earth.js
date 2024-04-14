@@ -14,6 +14,8 @@ const yearSlider = document.getElementById('yearSlider');
 let sliderTimer;
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
+const loadingScreen = document.getElementById('loading-screen');
+const instructions = document.getElementById('instructions');
 
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
@@ -147,7 +149,10 @@ loader.load(
   },
   //Show progress of loading the model
   function (xhr) {
-    console.log((xhr.loaded / xhr.total * 100) + '% loaded');
+    if (xhr.loaded === xhr.total) {
+      loadingScreen.style.display = 'none';
+      instructions.style.display = 'block';
+    }
   },
   function (error) {
     console.error('Error loading GLTF model:', error);

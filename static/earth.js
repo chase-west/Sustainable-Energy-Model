@@ -94,7 +94,7 @@ const countryMap = {
   "Kerguelen Islands": "France",
   "Andaman And Nicobar Islands": "India",
   "Kashmir": "India",
-  "Czech Rep": "Czechia"
+  "Czech Rep ": "Czechia"
 };
 
 loader.load(
@@ -131,14 +131,11 @@ loader.load(
            // Replace underscores with spaces in the country name
 
           selectedCountry = selectedCountry.replace(/_/g, ' ');
-          console.log(`Clicked on parent object: ${selectedCountry}`);
           // Fix country name if in countryMap
           if (selectedCountry in countryMap) {
             selectedCountry = countryMap[selectedCountry];
           }
-
           if (countryYears[selectedCountry] === undefined) {
-            console.log(`Fixed country name: ${selectedCountry}`);
             let country2024Data = await Fetch2024CountryData(selectedCountry);
             updateCountryData(selectedCountry, country2024Data, 2024);
             countryYears[selectedCountry] = 2024;
@@ -216,7 +213,6 @@ const highlightMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000, transpa
 function changeCountryColor(clickedObject, selectedCountry) {
   // Get renewable energy data
   let renewableData = countryData[selectedCountry];
-  console.log('Renewable Data:', renewableData);
 
   clickedObject.traverse(child => {
     if (child.isMesh) {

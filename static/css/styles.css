@@ -9,6 +9,30 @@ html, body {
   font-family: Roboto;
 }
 
+
+@keyframes breath {
+  0%, 100% {
+      transform: translate(-50%, -50%) scale(1); /* Start and end with normal size */
+  }
+  50% {
+      transform: translate(-50%, -50%) scale(1.2); /* Slightly larger at the middle of animation */
+  }
+}
+
+.instructions {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 3em;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  animation: breath 4s infinite ease-in-out;
+  pointer-events: none;
+}
+
 .canvas {
   display: block;
   width: 100%;

@@ -260,10 +260,7 @@ function displaySlider() {
   Array.from(sliderContainers).forEach(container => {
     container.style.display = 'block';
   });
-  const instructionContainer = document.getElementsByClassName('instructions');
-  Array.from(instructionContainer).forEach(container => {
-    container.style.display = 'none';
-  });
+  instructions.style.display = 'none';
 }
 
 /////// Set up the scene ///////

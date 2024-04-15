@@ -44,7 +44,7 @@ html, body {
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 2.8em;
-  font-family: 'Roboto', sans-serif; /* Ensure font is specified here as well */
+  font-family: 'Roboto', sans-serif; 
   -webkit-user-select: none;
   -ms-user-select: none;
   user-select: none;

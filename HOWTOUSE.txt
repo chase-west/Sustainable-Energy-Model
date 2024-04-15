@@ -1,0 +1,2 @@
+Make sure all modules are imported from requirements.txt
+To start website run the app.py file. 

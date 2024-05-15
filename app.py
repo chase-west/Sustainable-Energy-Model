@@ -59,4 +59,4 @@ def get_renewable_data_2024():
         return jsonify({'error': 'Country parameter is required'}), 400
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0')

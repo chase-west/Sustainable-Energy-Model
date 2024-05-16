@@ -17,8 +17,7 @@ To get started with this project, follow these steps:
 - Launch the Flask server to start serving prediction data (Run app.py).
 - Open the front-end interface in a web browser to visualize the predicted energy production.
 # Note
-- Please note that the map model used in this project is not provided as it was purchased. However, you can replace it with your own model or explore alternative methods for front end presentation.
-- The database also isn't provided for obvious reasons. If you would like, you can use your own online mongo database. There is a free version which I used for this project. To create the data for this database run the create_and_store_data() function in the LinearRegression.py file. 
+The database isn't provided. If you would like, you can use your own online mongo database. There is a free version which I used for this project. To create the data for this database run the create_and_store_data() function in the LinearRegression.py file. 
 
 # Contributing
 Contributions are welcome! Feel free to fork the repository, make improvements, and submit pull requests. For major changes, please open an issue first to discuss the proposed changes.

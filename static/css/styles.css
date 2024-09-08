@@ -7,7 +7,7 @@ html, body {
   overflow: hidden;
   background-color: black;
   color: white;
-  font-family: 'Roboto', sans-serif; /* Use Roboto font with a fallback */
+  font-family: "IBM Plex Sans";
 }
 
 /* Keyframe animation for instructions */

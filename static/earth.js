@@ -28,7 +28,7 @@ const countryYears = {};
 const countryData = {};
 const countryColors = {};
 
-// Country map to map different names of countries to the same name
+// Country map to map different names of countries to uniform territory
 const countryMap = {
   "Hawaii": "United States",
   "Alaska": "United States",

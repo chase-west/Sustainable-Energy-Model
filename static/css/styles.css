@@ -9,41 +9,60 @@ html, body {
   font-family: "IBM Plex Sans";
 }
 
-.home-container {
+.container {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   height: 100vh;
-  text-align: center;
-  background: linear-gradient(135deg, #1a1a2e, #16213e);
+  padding: 0 50px;
+  background: radial-gradient(circle at center, rgba(0, 35, 51, 0.7), rgba(0, 20, 36, 0.9));
 }
 
-.home-container h1 {
-  font-size: 3em;
-  margin-bottom: 20px;
-  color: #4ecca3;
+.text-content {
+    flex: 1;
+    max-width: 45%;
 }
 
-.home-container p {
-  font-size: 1.2em;
-  margin-bottom: 30px;
-  max-width: 600px;
+.text-content h1 {
+    font-size: 3em;
+    margin-bottom: 20px;
+    color: #4ecca3;
+}
+
+.text-content p {
+    font-size: 1.2em;
+    margin-bottom: 30px;
+    max-width: 90%;
 }
 
 #explore-btn {
-  padding: 15px 30px;
-  font-size: 1.2em;
-  background-color: #4ecca3;
-  color: #1a1a2e;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+    padding: 15px 30px;
+    font-size: 1.2em;
+    background-color: #4ecca3;
+    color: #1a1a2e;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 #explore-btn:hover {
-  background-color: #45b393;
+    background-color: #45b393;
+}
+
+.image-content {
+    flex: 1;
+    max-width: 45%;
+    display: flex;
+    justify-content: center;
+}
+
+.image-content img {
+    width: 80%;
+    height: auto;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    object-fit: cover;
 }
 
 /* Loading screen styles */

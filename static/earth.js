@@ -20,6 +20,16 @@ const instructions = document.getElementById('instructions');
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true;
+controls.dampingFactor = 0.25;
+controls.enableZoom = true;
+controls.maxPolarAngle = Math.PI / 2; // Prevent camera from going below the plane
+controls.minDistance = 2;
+controls.maxDistance = 8;
+
+let earthModel;
+
 // Load GLTF model
 const loader = new GLTFLoader();
 
@@ -46,11 +56,25 @@ const countryMap = {
 loader.load(
   '/static/model/mapModel.glb',
   function (gltf) {
-    const object = gltf.scene;
-    scene.add(object);
+    earthModel = gltf.scene;
+    scene.add(earthModel);
+
+    // Center the model
+    const box = new THREE.Box3().setFromObject(earthModel);
+    const center = box.getCenter(new THREE.Vector3());
+    earthModel.position.sub(center);
+
+    // Adjust camera position based on model size
+    const size = box.getSize(new THREE.Vector3());
+    const maxDim = Math.max(size.x, size.y, size.z);
+    camera.position.set(0, maxDim * 0.5, maxDim * 0.5);
+    camera.lookAt(0, 0, 0);
+
+    controls.target.set(0, 0, 0);
+    controls.update();
 
     //Find the countries landmass object in the loaded model
-    const countriesLandmass = object.getObjectByName('COUNTRIES__Landmass_');
+    const countriesLandmass = earthModel.getObjectByName('COUNTRIES__Landmass_');
     if (countriesLandmass) {
 
       countriesLandmass.traverse(child => {
@@ -265,21 +289,17 @@ function displaySlider() {
 
 /////// Set up the scene ///////
 
-// Set up lights
-const ambientLight = new THREE.AmbientLight(0xffffff, 0.8); // Soft white ambient light
+// Lighting
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
 scene.add(ambientLight);
-const directionalLight = new THREE.DirectionalLight(0xffffff, 0.3); // White directional light
-directionalLight.position.set(0, 1, 0); // Position the light directly above the scene
+
+const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
+directionalLight.position.set(5, 5, 5);
 scene.add(directionalLight);
 
 // Set camera position for top-down view
 camera.position.set(0, 3, 0); // Place the camera above the scene looking down
 camera.lookAt(scene.position); // Point the camera at the center of the scene
-
-//Navigation
-const controls = new OrbitControls(camera, renderer.domElement);
-controls.enableZoom = true; // Allow zooming with mouse wheel
-controls.enablePan = true; // Allow panning with mouse drag
 
 // Animation loop
 function animate() {

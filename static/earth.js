@@ -25,8 +25,8 @@ controls.enableDamping = true;
 controls.dampingFactor = 0.25;
 controls.enableZoom = true;
 controls.maxPolarAngle = Math.PI / 2; // Prevent camera from going below the plane
-controls.minDistance = 2;
-controls.maxDistance = 8;
+controls.minDistance = 0.8;
+controls.maxDistance = 6;
 
 let earthModel;
 

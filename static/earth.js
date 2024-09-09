@@ -6,7 +6,11 @@ import { Fetch2024CountryData } from "./app.js";
 
 //Create necessary variables
 const scene = new THREE.Scene();
+
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+camera.position.set(0, 3, 0); // Place the camera above the scene looking down
+camera.lookAt(scene.position); // Point the camera at the center of the scene
+
 const renderer = new THREE.WebGLRenderer();
 let energy = 0;
 const renewableEnergyValue = document.getElementById('renewableEnergyValue');
@@ -59,19 +63,19 @@ loader.load(
     earthModel = gltf.scene;
     scene.add(earthModel);
 
-    // Center the model
-    const box = new THREE.Box3().setFromObject(earthModel);
-    const center = box.getCenter(new THREE.Vector3());
-    earthModel.position.sub(center);
-
-    // Adjust camera position based on model size
-    const size = box.getSize(new THREE.Vector3());
-    const maxDim = Math.max(size.x, size.y, size.z);
-    camera.position.set(0, maxDim * 0.5, maxDim * 0.5);
-    camera.lookAt(0, 0, 0);
-
-    controls.target.set(0, 0, 0);
-    controls.update();
+     // Center the model
+     const box = new THREE.Box3().setFromObject(earthModel);
+     const center = box.getCenter(new THREE.Vector3());
+     earthModel.position.sub(center);
+ 
+     // Adjust camera position based on model size
+     const size = box.getSize(new THREE.Vector3());
+     const maxDim = Math.max(size.x, size.y, size.z);
+     camera.position.set(0, maxDim * 0.5, maxDim * 0.5);
+     camera.lookAt(0, 0, 0);
+ 
+     controls.target.set(0, 0, 0);
+     controls.update();
 
     //Find the countries landmass object in the loaded model
     const countriesLandmass = earthModel.getObjectByName('COUNTRIES__Landmass_');
@@ -219,16 +223,31 @@ function changeCountryColor(clickedObject, selectedCountry) {
 let currentHighlightedCountry = null;
 const highlightMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000, transparent: true, opacity: 0.5 });
 
+let pulseAnimationId;
+
 function highlightCountry(clickedObject) {
   if (currentHighlightedCountry !== clickedObject) {
+    // Cancel any ongoing pulse animation
+    if (pulseAnimationId) {
+      cancelAnimationFrame(pulseAnimationId);
+    }
+
     // Reset material of previously highlighted country
     if (currentHighlightedCountry) {
       currentHighlightedCountry.material = new THREE.MeshBasicMaterial({ color: 0x006b3e });
     }
 
     // Apply highlight material to the clicked country
-    clickedObject.material = highlightMaterial;
     currentHighlightedCountry = clickedObject;
+    
+    // Add a pulsing effect
+    let pulseIntensity = 0;
+    function pulseHighlight() {
+      pulseIntensity = Math.sin(Date.now() * 0.005) * 0.2 + 0.8;
+      clickedObject.material.color.setRGB(1, 0, 0).multiplyScalar(pulseIntensity);
+      pulseAnimationId = requestAnimationFrame(pulseHighlight);
+    }
+    pulseHighlight();
   }
 }
 
@@ -287,22 +306,60 @@ function displaySlider() {
   instructions.style.display = 'none';
 }
 
+function createStarfield() {
+  const geometry = new THREE.BufferGeometry();
+  const vertices = [];
+
+  for (let i = 0; i < 10000; i++) {
+    const theta = Math.random() * Math.PI * 2;
+    const phi = Math.acos(Math.random() * 2 - 1);
+    const radius = Math.random() * 1000 + 1000; // Stars between 1000 and 2000 units away
+
+    const x = radius * Math.sin(phi) * Math.cos(theta);
+    const y = radius * Math.sin(phi) * Math.sin(theta);
+    const z = radius * Math.cos(phi);
+
+    vertices.push(x, y, z);
+  }
+
+  geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+
+  const material = new THREE.PointsMaterial({
+    color: 0xffffff,
+    size: 2,
+    sizeAttenuation: true
+  });
+
+  const starfield = new THREE.Points(geometry, material);
+  scene.add(starfield);
+
+  return starfield;
+}
+
+const starfield = createStarfield();
+
+// Add this to your animation loop
+function animateStarfield() {
+  starfield.rotation.y += 0.0001;
+}
+
 /////// Set up the scene ///////
 
-// Lighting
-const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
-scene.add(ambientLight);
+// Lighting 
+const hemisphereLight = new THREE.HemisphereLight(0xffffff, 0x444444, 1);
+scene.add(hemisphereLight);
 
-const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
-directionalLight.position.set(5, 5, 5);
-scene.add(directionalLight);
+const frontLight = new THREE.DirectionalLight(0xffffff, 1);
+frontLight.position.set(0, 0, 10);
+scene.add(frontLight);
 
-// Set camera position for top-down view
-camera.position.set(0, 3, 0); // Place the camera above the scene looking down
-camera.lookAt(scene.position); // Point the camera at the center of the scene
+const backLight = new THREE.DirectionalLight(0x8888ff, 0.5);
+backLight.position.set(0, 0, -10);
+scene.add(backLight);
 
 // Animation loop
 function animate() {
+  animateStarfield()
   requestAnimationFrame(animate);
   controls.update(); // Update controls
   renderer.render(scene, camera); // Render the scene

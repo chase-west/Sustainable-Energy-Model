@@ -16,9 +16,13 @@ db = client['mydatabase']
 collection = db['renewable_electricity']
 
 #Route to serve the HTML template
-@app.route('/')
-def index():
+@app.route('/explore')
+def explore():
     return render_template('index.html')
+
+@app.route('/')
+def home():
+    return render_template('home.html')
 
 #Endpoint to retrieve predicted renewable energy data for a specific country and year
 @app.route('/renewable-data', methods=['GET'])

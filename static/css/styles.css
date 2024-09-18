@@ -124,7 +124,8 @@ body, html {
 
 #earth-icon {
   width: 100px;
-  height: auto;
+  height: auto; 
+  animation: spin 2s linear infinite;
 }
 
 @keyframes spin {

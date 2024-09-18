@@ -2,48 +2,45 @@
 body, html {
   margin: 0;
   padding: 0;
-  height: 100%;
   font-family: 'IBM Plex Sans', sans-serif;
   background-color: #0b132b;
   color: #fff;
+  overflow-x: hidden;
 }
 
 .container {
+  min-height: 100vh;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 100vh;
-  padding: 0 50px;
-  background: radial-gradient(circle, rgba(43, 45, 66, 1), rgba(10, 24, 49, 1));
+  flex-direction: column;
 }
 
 /* Hero Section */
 .hero-section {
-  padding: 50px;
-  text-align: left;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: radial-gradient(circle, rgba(43, 45, 66, 1), rgba(10, 24, 49, 1));
+  position: relative;
+  overflow: hidden;
 }
 
 .text-content {
-  flex: 1;
-  max-width: 45%;
+  z-index: 2;
+  max-width: 800px;
+  padding: 0 20px;
 }
 
 .text-content h1 {
   font-size: 3.5em;
   margin-bottom: 20px;
   color: #4ecca3;
-  opacity: 0;
-  transform: translateY(20px);
-  animation: fadeInUp 0.8s ease forwards 0.5s;
 }
 
 .text-content p {
   font-size: 1.2em;
   margin-bottom: 30px;
-  max-width: 90%;
-  opacity: 0;
-  transform: translateY(20px);
-  animation: fadeInUp 0.8s ease forwards 0.7s;
 }
 
 #explore-btn {
@@ -57,9 +54,6 @@ body, html {
   border-radius: 5px;
   cursor: pointer;
   transition: all 0.3s ease;
-  opacity: 0;
-  transform: translateY(20px);
-  animation: fadeInUp 0.8s ease forwards 0.9s;
 }
 
 #explore-btn:hover {
@@ -68,51 +62,51 @@ body, html {
   box-shadow: 0 4px 15px rgba(78, 204, 163, 0.4);
 }
 
-.image-container {
-  flex: 1;
+/* About Section */
+.about-section {
+  padding: 100px 50px;
+  background-color: #16213e;
+}
+
+.about-content {
+  max-width: 1200px;
+  margin: 0 auto;
   display: flex;
-  justify-content: center;
+  flex-wrap: wrap;
+  justify-content: space-between;
   align-items: center;
 }
 
-.image-content {
-  width: 80%;
-  height: auto;
-  max-height: 80vh;
-  object-fit: cover;
-  border-radius: 15px;
-  opacity: 0;
-  transform: translateY(40px);
-  animation: fadeInUp 0.8s ease forwards 0.7s;
-}
-/* About Section */
-.about-section {
-  padding: 50px;
-  background-color: #16213e;
-  text-align: center;
+.about-text {
+  flex: 1;
+  min-width: 300px;
+  padding-right: 50px;
 }
 
-.about-section h2 {
+.about-text h2 {
   font-size: 2.5em;
   margin-bottom: 20px;
   color: #4ecca3;
 }
 
-.about-section p {
-  font-size: 1.2em;
-  max-width: 800px;
-  margin: 0 auto 40px;
-  color: #e1e1e1;
+.about-text p {
+  font-size: 1.1em;
+  line-height: 1.6;
+  margin-bottom: 20px;
 }
 
 .about-images {
+  flex: 1;
+  min-width: 300px;
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
   gap: 20px;
 }
 
 .about-images img {
-  width: 300px;
+  width: 45%;
+  max-width: 200px;
   height: auto;
   border-radius: 10px;
   transition: transform 0.3s ease;
@@ -122,40 +116,59 @@ body, html {
   transform: scale(1.05);
 }
 
-/* Animations */
-@keyframes fadeInUp {
-  to {
-      opacity: 1;
-      transform: translateY(0);
-  }
+/* Animation placeholder */
+.animation-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  /* Add your animation styles here */
+}
+
+/* Scroll Animations */
+.fade-in {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.fade-in.appear {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* Responsive Styles */
 @media (max-width: 768px) {
-  .container {
-      flex-direction: column;
-      padding: 0 20px;
+  .text-content h1 {
+    font-size: 2.5em;
   }
 
-  .text-content {
-      max-width: 100%;
-      text-align: center;
+  .text-content p {
+    font-size: 1em;
   }
 
-  .image-content {
-      max-width: 100%;
-      margin-top: 20px;
+  #explore-btn {
+    padding: 12px 24px;
+    font-size: 1em;
   }
 
-  .about-images {
-      flex-direction: column;
-      gap: 10px;
+  .about-section {
+    padding: 50px 20px;
+  }
+
+  .about-text {
+    padding-right: 0;
+    margin-bottom: 30px;
   }
 
   .about-images img {
-      width: 100%;
+    width: 100%;
+    max-width: none;
   }
 }
+
 
 /* Loading screen styles */
 #loading-screen {

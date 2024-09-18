@@ -5,9 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Global Renewable Energy Explorer</title>
     <link rel="stylesheet" href="/static/css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
+
+    <!-- Hero Section -->
+    <div class="container hero-section">
         <div class="text-content">
             <h1>Global Renewable Energy Explorer</h1>
             <p>Discover and compare renewable energy production across the world from 2024 to 2124.</p>
@@ -15,10 +20,22 @@
         </div>
         <div class="image-container">
             <a href="/explore">
-                <img src="/static/images/homepageearthimage.png" alt="Global Renewable Energy" class="image-content" />
+                <img src="https://via.placeholder.com/600x400" alt="Global Renewable Energy" class="image-content" />
             </a>
         </div>
     </div>
+
+    <!-- About Section -->
+    <section class="about-section" id="about">
+        <h2>About Global Renewable Energy Explorer</h2>
+        <p>Our mission is to provide up-to-date insights into renewable energy production around the globe. 
+           Compare historical trends and future predictions to see how the world is transitioning towards sustainable energy sources.</p>
+        <div class="about-images">
+            <img src="https://via.placeholder.com/300x200" alt="Renewable Energy Progress" />
+            <img src="https://via.placeholder.com/300x200" alt="Future Energy Predictions" />
+        </div>
+    </section>
+
     <script>
         document.getElementById('explore-btn').addEventListener('click', function() {
             window.location.href = '/explore';

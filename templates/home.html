@@ -14,7 +14,17 @@
         <!-- Hero Section -->
         <section class="hero-section">
             <div class="animation-container">
-                <!-- Your energy flow animation will go here -->
+                <svg class="energy-flow" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice">
+                    <defs>
+                        <linearGradient id="energyGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" stop-color="#4ecca3" stop-opacity="0" />
+                            <stop offset="50%" stop-color="#4ecca3" stop-opacity="1" />
+                            <stop offset="100%" stop-color="#4ecca3" stop-opacity="0" />
+                        </linearGradient>
+                    </defs>
+                    <path class="energy-glow" d="M0,500 Q250,450 500,500 T1000,500" />
+                    <path class="energy-path" d="M0,500 Q250,450 500,500 T1000,500" />
+                </svg>
             </div>
             <div class="text-content">
                 <h1>Global Renewable Energy Explorer</h1>
@@ -42,6 +52,26 @@
     </div>
 
     <script>
+        // Energy Animation
+        const energyFlow = document.querySelector('.energy-flow');
+        const energyPath = document.querySelector('.energy-path');
+        const energyGlow = document.querySelector('.energy-glow');
+
+        function updateEnergyFlow() {
+            const height = window.innerHeight;
+            const width = window.innerWidth;
+            
+            energyFlow.setAttribute('viewBox', `0 0 ${width} ${height}`);
+            
+            const curve = `M0,${height/2} Q${width/4},${height/2-100} ${width/2},${height/2} T${width},${height/2}`;
+            energyPath.setAttribute('d', curve);
+            energyGlow.setAttribute('d', curve);
+        }
+
+        window.addEventListener('resize', updateEnergyFlow);
+        updateEnergyFlow();
+
+        // Explore button functionality
         document.getElementById('explore-btn').addEventListener('click', function() {
             window.location.href = '/explore';
         });

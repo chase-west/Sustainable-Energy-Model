@@ -26,9 +26,16 @@ body, html {
   overflow: hidden;
 }
 
+/* Text content animation */
+.text-content h1, .text-content p, #explore-btn {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInUp 1s ease forwards;
+}
+
 .text-content {
   z-index: 2;
-  max-width: 800px;
+  max-width: 1200px;
   padding: 0 20px;
 }
 
@@ -36,11 +43,13 @@ body, html {
   font-size: 3.5em;
   margin-bottom: 20px;
   color: #4ecca3;
+  transition-delay: 0s;
 }
 
 .text-content p {
   font-size: 1.2em;
   margin-bottom: 30px;
+  transition-delay: 0.3s;
 }
 
 #explore-btn {
@@ -54,12 +63,69 @@ body, html {
   border-radius: 5px;
   cursor: pointer;
   transition: all 0.3s ease;
+  transition-delay: 0.6s;
 }
+
 
 #explore-btn:hover {
   background-color: #45b393;
   transform: translateY(-3px);
   box-shadow: 0 4px 15px rgba(78, 204, 163, 0.4);
+}
+
+/* Energy Animation */
+.animation-container {
+  opacity: 0;
+  position: absolute;
+  top: 15%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  overflow: hidden;
+  animation: fadeInUp 1s ease forwards;
+  animation-delay: 0.4s;
+}
+
+.energy-flow {
+  width: 100%;
+  height: 100%;
+}
+
+.energy-path {
+  fill: none;
+  stroke: url(#energyGradient);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-dasharray: 20, 10;
+  animation: flowAnimation 30s linear infinite;
+}
+
+.energy-glow {
+  fill: none;
+  stroke: url(#energyGradient);
+  stroke-width: 15;
+  stroke-linecap: round;
+  filter: blur(8px);
+  opacity: 0.6;
+  animation: flowAnimation 30s linear infinite;
+}
+
+@keyframes flowAnimation {
+  to {
+    stroke-dashoffset: -1000;
+  }
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* About Section */
@@ -116,17 +182,6 @@ body, html {
   transform: scale(1.05);
 }
 
-/* Animation placeholder */
-.animation-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-  /* Add your animation styles here */
-}
-
 /* Scroll Animations */
 .fade-in {
   opacity: 0;
@@ -142,30 +197,30 @@ body, html {
 /* Responsive Styles */
 @media (max-width: 768px) {
   .text-content h1 {
-    font-size: 2.5em;
+      font-size: 2.5em;
   }
 
   .text-content p {
-    font-size: 1em;
+      font-size: 1em;
   }
 
   #explore-btn {
-    padding: 12px 24px;
-    font-size: 1em;
+      padding: 12px 24px;
+      font-size: 1em;
   }
 
   .about-section {
-    padding: 50px 20px;
+      padding: 50px 20px;
   }
 
   .about-text {
-    padding-right: 0;
-    margin-bottom: 30px;
+      padding-right: 0;
+      margin-bottom: 30px;
   }
 
   .about-images img {
-    width: 100%;
-    max-width: none;
+      width: 100%;
+      max-width: none;
   }
 }
 

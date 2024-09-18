@@ -247,7 +247,7 @@ function highlightCountry(clickedObject) {
       clickedObject.material.color.setRGB(1, 0, 0).multiplyScalar(pulseIntensity);
       pulseAnimationId = requestAnimationFrame(pulseHighlight);
     }
-    pulseHighlight();
+ //   pulseHighlight();
   }
 }
 

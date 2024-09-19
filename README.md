@@ -25,5 +25,4 @@ The database isn't provided. If you would like, you can use your own online mong
 # Contributing
 Contributions are welcome! Feel free to fork the repository, make improvements, and submit pull requests. For major changes, please open an issue first to discuss the proposed changes.
 
-# License
-This project is licensed under the MIT License.
+

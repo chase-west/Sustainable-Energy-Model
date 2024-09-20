@@ -8,6 +8,69 @@ body, html {
   overflow-x: hidden;
 }
 
+.fullpage-container {
+  height: 100vh;
+  position: relative;
+  overflow: hidden
+}
+
+.sections-wrapper {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.section {
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  transition: opacity 0.7s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.active-section {
+  opacity: 1;
+  z-index: 1;
+}
+
+.section:not(.active-section) {
+  z-index: 0;
+}
+
+.section-indicator {
+  position: fixed;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+}
+
+.section-indicator ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.section-indicator li {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.5);
+  margin: 10px 0;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.section-indicator li.active {
+  background-color: #4ecca3;
+}
+
 .container {
   min-height: 100vh;
   display: flex;

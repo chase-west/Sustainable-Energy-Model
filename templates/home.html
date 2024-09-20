@@ -10,93 +10,60 @@
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <!-- Hero Section -->
-        <section class="hero-section">
-            <div class="animation-container">
-                <svg class="energy-flow" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice">
-                    <defs>
-                        <linearGradient id="energyGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                            <stop offset="0%" stop-color="#4ecca3" stop-opacity="0" />
-                            <stop offset="50%" stop-color="#4ecca3" stop-opacity="1" />
-                            <stop offset="100%" stop-color="#4ecca3" stop-opacity="0" />
-                        </linearGradient>
-                    </defs>
-                    <path class="energy-glow" d="M0,500 Q250,450 500,500 T1000,500" />
-                    <path class="energy-path" d="M0,500 Q250,450 500,500 T1000,500" />
-                </svg>
-            </div>
-            <div class="text-content">
-                <h1>Global Renewable Energy Explorer</h1>
-                <p>Discover and compare renewable energy production across the world from 2024 to 2124.</p>
-                <button id="explore-btn">Start Exploring</button>
-            </div>
-        </section>
+    <div class="fullpage-container">
+        <div class="sections-wrapper">
+            <!-- Hero Section -->
+            <section class="section hero-section active-section">
+                <div class="animation-container">
+                    <svg class="energy-flow" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice">
+                        <defs>
+                            <linearGradient id="energyGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" stop-color="#4ecca3" stop-opacity="0" />
+                                <stop offset="50%" stop-color="#4ecca3" stop-opacity="1" />
+                                <stop offset="100%" stop-color="#4ecca3" stop-opacity="0" />
+                            </linearGradient>
+                        </defs>
+                        <path class="energy-glow" d="M0,500 Q250,450 500,500 T1000,500" />
+                        <path class="energy-path" d="M0,500 Q250,450 500,500 T1000,500" />
+                    </svg>
+                </div>
+                <div class="text-content">
+                    <h1>Global Renewable Energy Explorer</h1>
+                    <p>Discover and compare renewable energy production across the world from 2024 to 2124.</p>
+                    <button id="explore-btn">Start Exploring</button>
+                </div>
+            </section>
 
-        <!-- About Section -->
-        <section class="about-section">
-            <div class="about-content">
-                <div class="about-text">
-                    <h2 class="fade-in">About Global Renewable Energy Explorer</h2>
-                    <p class="fade-in">Our mission is to provide up-to-date insights into renewable energy production around the globe. Compare historical trends and future predictions to see how the world is transitioning towards sustainable energy sources.</p>
-                    <p class="fade-in">Explore interactive visualizations, analyze data, and gain a deeper understanding of the global shift towards clean energy.</p>
-                </div>
-                <div class="about-images">
-                    <img src="/static/images/solar.webp" alt="Solar panels" class="fade-in">
-                    <img src="/static/images/wind.webp" alt="Wind turbines" class="fade-in">
-                    <img src="/static/images/dam.png" alt="Hydroelectric dam" class="fade-in">
-                    <img src="/static/images/geo.png" alt="Geothermal energy" class="fade-in">
-                </div>
-            </div>
-        </section>
+            <!-- About Section -->
+            <section class="section about-section">
+    <div class="about-content">
+        <div class="about-text fade-in-slide">
+            <h2>About Global Renewable Energy Explorer</h2>
+            <p>Our mission is to provide up-to-date insights into renewable energy production around the globe. Compare historical trends and future predictions to see how the world is transitioning towards sustainable energy sources.</p>
+            <p>Explore interactive visualizations, analyze data, and gain a deeper understanding of the global shift towards clean energy.</p>
+        </div>
+        <div class="about-images fade-in-slide">
+            <img src="/static/images/solar.webp" alt="Solar panels">
+            <img src="/static/images/wind.webp" alt="Wind turbines">
+            <img src="/static/images/dam.png" alt="Hydroelectric dam">
+            <img src="/static/images/geo.png" alt="Geothermal energy">
+        </div>
+    </div>
+</section>
+
+            <!-- Additional sections here -->
+        </div>
     </div>
 
-    <script>
-        // Energy Animation
-        const energyFlow = document.querySelector('.energy-flow');
-        const energyPath = document.querySelector('.energy-path');
-        const energyGlow = document.querySelector('.energy-glow');
+    <div class="section-indicator">
+        <ul>
+            <li class="active"></li>
+            <li></li>
+            <!-- Add indicators for other sections -->
+        </ul>
+    </div>
 
-        function updateEnergyFlow() {
-            const height = window.innerHeight;
-            const width = window.innerWidth;
-            
-            energyFlow.setAttribute('viewBox', `0 0 ${width} ${height}`);
-            
-            const curve = `M0,${height/2} Q${width/4},${height/2-100} ${width/2},${height/2} T${width},${height/2}`;
-            energyPath.setAttribute('d', curve);
-            energyGlow.setAttribute('d', curve);
-        }
-
-        window.addEventListener('resize', updateEnergyFlow);
-        updateEnergyFlow();
-
-        // Explore button functionality
-        document.getElementById('explore-btn').addEventListener('click', function() {
-            window.location.href = '/explore';
-        });
-
-        // Scroll animation
-        const faders = document.querySelectorAll('.fade-in');
-        const appearOptions = {
-            threshold: 0.1,
-            rootMargin: "0px 0px -100px 0px"
-        };
-
-        const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll) {
-            entries.forEach(entry => {
-                if (!entry.isIntersecting) {
-                    return;
-                } else {
-                    entry.target.classList.add('appear');
-                    appearOnScroll.unobserve(entry.target);
-                }
-            });
-        }, appearOptions);
-
-        faders.forEach(fader => {
-            appearOnScroll.observe(fader);
-        });
-    </script>
+    <script src="/static/scrollscript.js"></script>
+    <script src="/static/energyflow.js"></script>
 </body>
 </html>

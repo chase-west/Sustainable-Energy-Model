@@ -1,3 +1,6 @@
+# Visit the site here! 
+[Production Website](https://sustainable-energy-model.onrender.com)
+
 # Renewable Energy Prediction Project
 This project utilizes linear regression to predict the renewable energy production for every country over the next 100 years. The predicted data is visualized on a front-end interface, which fetches the data from a Flask backend connected to an online MongoDB database.
 
@@ -22,5 +25,4 @@ The database isn't provided. If you would like, you can use your own online mong
 # Contributing
 Contributions are welcome! Feel free to fork the repository, make improvements, and submit pull requests. For major changes, please open an issue first to discuss the proposed changes.
 
-# License
-This project is licensed under the MIT License.
+

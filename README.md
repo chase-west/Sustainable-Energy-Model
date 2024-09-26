@@ -8,7 +8,7 @@ This project utilizes linear regression to predict the renewable energy producti
 The goal of this project is to provide insights into the future renewable energy production of various countries, enabling stakeholders to make informed decisions regarding energy planning and policy-making. By utilizing linear regression modeling techniques, the project forecasts energy production trends for the next century.
 
 # Features
-- Linear Regression Model: Utilizes a linear regression algorithm to predict renewable energy production for each country.
+- Meta Prophet Data Prediction: Utilizes Meta's Prophet procedure to predict renewable energy production for each country.
 - Front-end Visualization: Visualizes predicted energy production data using a 3d map of the world.
 - Backend Data Fetching: Fetches prediction data from a Flask backend connected to an online MongoDB database.
 # Getting Started

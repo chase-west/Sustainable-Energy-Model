@@ -136,6 +136,87 @@ body, html {
   box-shadow: 0 4px 15px rgba(78, 204, 163, 0.4);
 }
 
+/* Viewport for tablets and medium screens (max-width: 1024px) */
+@media (max-width: 1024px) {
+  .hero-section {
+      padding-top: 80px; /* Move content higher */
+  }
+
+  .text-content h1 {
+      font-size: 3em;
+  }
+
+  .text-content p {
+      font-size: 1.2em;
+  }
+
+  #explore-btn {
+      margin-top: 15px; /* Adjust button margin */
+  }
+}
+
+/* Viewport for smaller devices like mobile phones (max-width: 768px) */
+@media (max-width: 768px) {
+  .hero-section {
+      padding-top: 60px; /* Further reduce padding to move content up */
+  }
+
+  .text-content h1 {
+      font-size: 2.2em;
+  }
+
+  .text-content p {
+      font-size: 1em;
+  }
+
+  #explore-btn {
+      margin-top: 10px;
+  }
+}
+
+/* Viewport for very small devices like iPhone SE (max-width: 375px) */
+@media (max-width: 375px) {
+  .hero-section {
+      padding-top: 30px; /* Significantly reduce padding to move up */
+  }
+
+  .text-content h1 {
+      font-size: 1.8em;
+  }
+
+  .text-content p {
+      font-size: 0.9em;
+  }
+
+  #explore-btn {
+      margin-top: 5px;
+      padding: 10px 20px; /* Adjust button size */
+  }
+}
+
+/* Viewport for extra small devices (max-width: 320px) */
+@media (max-width: 320px) {
+  .hero-section {
+      padding-top: 20px; /* Minimal padding */
+  }
+
+  .text-content h1 {
+      font-size: 1.6em;
+  }
+
+  .text-content p {
+      font-size: 0.8em;
+  }
+
+  #explore-btn {
+      margin-top: 5px;
+      padding: 8px 15px; /* Further adjust button size */
+  }
+}
+
+
+
+
 /* Energy Animation */
 .animation-container {
   opacity: 0;
@@ -190,10 +271,9 @@ body, html {
     transform: translateY(0);
   }
 }
-
 /* About Section */
 .about-section {
-  padding: 100px 50px;
+  padding: 20px 10px; /* Reduced padding for a tighter layout */
   background-color: #16213e;
 }
 
@@ -201,49 +281,107 @@ body, html {
   max-width: 1200px;
   margin: 0 auto;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column; /* Keep column layout for smaller screens */
+  align-items: center; /* Center align content */
 }
 
 .about-text {
   flex: 1;
-  min-width: 300px;
-  padding-right: 50px;
+  text-align: center; /* Centered text */
+  color: #4ecca3;
+  padding: 20px; /* Add some padding */
+  margin-bottom: 50px; /* Add margin to separate from images */
+  position: relative; /* Allow for absolute positioning of text */
+  top: -50px; /* Move text higher */
 }
 
 .about-text h2 {
-  font-size: 2.5em;
+  font-size: 3em; /* Base font size */
   margin-bottom: 20px;
-  color: #4ecca3;
 }
 
 .about-text p {
-  font-size: 1.1em;
-  line-height: 1.6;
+  font-size: 1.5em; /* Base font size for paragraphs */
+  line-height: 1.6; /* Increased line height for better readability */
   margin-bottom: 20px;
 }
 
 .about-images {
-  flex: 1;
-  min-width: 300px;
   display: flex;
-  justify-content: center;
+  justify-content: center; /* Center images */
   flex-wrap: wrap;
   gap: 20px;
 }
 
-.about-images img {
-  width: 45%;
-  max-width: 200px;
-  height: auto;
+.about-image {
+  width: 100%; /* Make images responsive */
+  max-width: 250px; /* Set a maximum width for images */
   border-radius: 10px;
   transition: transform 0.3s ease;
 }
 
-.about-images img:hover {
-  transform: scale(1.05);
+.about-image:hover {
+  transform: scale(1.1); /* Scale effect on hover */
 }
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .about-text {
+      top: -30px; 
+  }
+
+  .about-text h2 {
+      font-size: 2.5em; 
+  }
+
+  .about-text p {
+      font-size: 1.2em; 
+  }
+
+  .about-image {
+      max-width: 200px; 
+  }
+}
+
+@media (max-width: 480px) {
+  .about-text {
+      top: 0; 
+      padding: 10px; 
+  }
+
+  .about-text h2 {
+      font-size: 2em; 
+  }
+
+  .about-text p {
+      font-size: 1em; 
+  }
+
+  .about-image {
+      max-width: 150px; 
+  }
+}
+/* Additional Styles for iPhone SE and Smaller Devices */
+@media (max-width: 375px) { 
+  .about-text {
+      top: 0; 
+      padding: 5px;
+      margin-bottom: 
+  }
+
+  .about-text h2 {
+      font-size: 1.8em; 
+  }
+
+  .about-text p {
+      font-size: 0.9em; 
+  }
+
+  .about-image {
+      max-width: 120px; 
+  }
+}
+
 
 /* Scroll Animations */
 .fade-in {
@@ -257,35 +395,6 @@ body, html {
   transform: translateY(0);
 }
 
-/* Responsive Styles */
-@media (max-width: 768px) {
-  .text-content h1 {
-      font-size: 2.5em;
-  }
-
-  .text-content p {
-      font-size: 1em;
-  }
-
-  #explore-btn {
-      padding: 12px 24px;
-      font-size: 1em;
-  }
-
-  .about-section {
-      padding: 50px 20px;
-  }
-
-  .about-text {
-      padding-right: 0;
-      margin-bottom: 30px;
-  }
-
-  .about-images img {
-      width: 100%;
-      max-width: none;
-  }
-}
 
 
 /* Loading screen styles */
@@ -412,44 +521,3 @@ input[type="range"]::-ms-thumb {
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
 }
 
-/* Responsive styles */
-@media (max-width: 768px) {
-  .home-container h1 {
-    font-size: 2em;
-  }
-  
-  .home-container p {
-    font-size: 1em;
-  }
-  
-  #explore-btn {
-    padding: 10px 20px;
-    font-size: 1em;
-  }
-  
-  #instructions {
-    font-size: 1.5em;
-  }
-  
-  .slider-container {
-    font-size: 1.2em;
-  }
-}
-
-@media screen and (max-width: 1545px) {
-  #instructions {
-    font-size: 2em;
-  }
-}
-
-@media screen and (max-width: 1354px) {
-  #instructions {
-    font-size: 1.5em;
-  }
-}
-
-@media screen and (max-width: 775px) {
-  #instructions {
-    font-size: 1em;
-  }
-}

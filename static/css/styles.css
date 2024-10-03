@@ -450,19 +450,20 @@ body, html {
   }
 }
 
-/* Canvas styles */
-.canvas {
-  display: block;
+#globe {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
+  z-index: 1; /* Lower than the slider */
 }
 
-.webgl {
-  display: none;
-}
-
-/* Slider container styles */
 .slider-container {
+  position: fixed; /* Fixed positioning */
+  top: 10px; /* Position at the top */
+  left: 10px; /* Position on the left */
+  z-index: 10; /* Higher than the globe */
   margin: 20px;
   font-size: 1.5em;
   background-color: rgba(26, 26, 46, 0.8);
@@ -477,47 +478,46 @@ body, html {
   color: #4ecca3;
 }
 
-/* Range input styles */
 input[type="range"] {
-  -webkit-appearance: none;
-  width: 200px;
-  height: 8px;
-  background: #4ecca3;
-  border-radius: 5px;
-  outline: none;
-  opacity: 0.7;
-  transition: opacity 0.2s;
+    -webkit-appearance: none; /* Removes default styling */
+    width: 200px; /* Set width */
+    height: 8px; /* Set height */
+    background: #4ecca3; /* Background color */
+    border-radius: 5px; /* Rounded corners */
+    outline: none; /* Removes outline */
+    opacity: 0.7; /* Slight transparency */
+    transition: opacity 0.2s; /* Smooth transition */
 }
 
 input[type="range"]:hover {
-  opacity: 1;
+    opacity: 1; /* Full visibility on hover */
 }
 
 input[type="range"]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  width: 20px;
-  height: 20px;
-  background: #ffffff;
-  cursor: pointer;
-  border-radius: 50%;
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+    -webkit-appearance: none; /* Custom thumb */
+    width: 20px; /* Thumb width */
+    height: 20px; /* Thumb height */
+    background: #ffffff; /* Thumb color */
+    cursor: pointer; /* Pointer cursor */
+    border-radius: 50%; /* Round shape */
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.3); /* Shadow for thumb */
 }
 
 input[type="range"]::-moz-range-thumb {
-  width: 20px;
-  height: 20px;
-  background: #ffffff;
-  cursor: pointer;
-  border-radius: 50%;
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+    width: 20px; /* Thumb width */
+    height: 20px; /* Thumb height */
+    background: #ffffff; /* Thumb color */
+    cursor: pointer; /* Pointer cursor */
+    border-radius: 50%; /* Round shape */
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.3); /* Shadow for thumb */
 }
 
 input[type="range"]::-ms-thumb {
-  width: 20px;
-  height: 20px;
-  background: #ffffff;
-  cursor: pointer;
-  border-radius: 50%;
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+    width: 20px; /* Thumb width */
+    height: 20px; /* Thumb height */
+    background: #ffffff; /* Thumb color */
+    cursor: pointer; /* Pointer cursor */
+    border-radius: 50%; /* Round shape */
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.3); /* Shadow for thumb */
 }
 

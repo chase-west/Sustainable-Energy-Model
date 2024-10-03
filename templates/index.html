@@ -11,14 +11,13 @@
 </head>
 <body>
   <div id="loading-screen">
-    <h1>Creating your world... </h1>
+    <h1>Creating your world...</h1>
     <img src="/static/images/earthicon.png" alt="Spinning Earth" id="earth-icon">
   </div>
   <div id="instructions">
     <h1>Click on a country</h1>
   </div>
-  <canvas class="webgl"></canvas>
-  <div class="slider-container" style="display: none;">
+  <div class="slider-container" style="display: none;"></div>
     <label for="year">Year: </label>
     <input type="range" id="yearSlider" name="year" min="2024" max="2124" value="2024">
     <span id="yearValue">2024</span>
@@ -27,7 +26,10 @@
       <span id="renewableEnergyValue">0</span>
     </div>
   </div>
+  <div id="globe"></div>
   <script type="module" src="/static/earth.js"></script>
   <script type="module" src="/static/app.js"></script>
+  <script src="//unpkg.com/d3"></script>
+  <script src="//unpkg.com/globe.gl"></script>
 </body>
 </html>

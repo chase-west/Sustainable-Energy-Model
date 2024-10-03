@@ -11,7 +11,6 @@ const uniformColor = '#69b3a2'; // Uniform color for all countries
 const colorScale = d3.scaleSequentialSqrt(d3.interpolateYlOrRd);
 
 let countryData = {}; // To store renewable energy data
-let yearData = {}; // To store year-specific data
 let countryYears = {}; // To keep track of country years
 
 let sliderDisplayed = false; // Flag to check if the slider has been displayed
@@ -36,12 +35,17 @@ const world = Globe()
             sliderDisplayed = true; // Set the flag to true
         }
 
-        const renewableData = await fetchRenewableData(selectedCountry, yearSlider.value);
-        countryData[selectedCountry] = renewableData;
+        // Check if data for the selected country is already fetched
+        if (!countryData[selectedCountry]) {
+            // Fetch data only if it's not already available
+            const renewableData = await Fetch2024CountryData(selectedCountry);
+            countryData[selectedCountry] = renewableData; // Store renewable energy data
+        }
+        
         updateCountryColor(hoverD.properties.ISO_A2); // Use ISO_A2 for color update
         resetUI(selectedCountry);
     })
-    .polygonsTransitionDuration(300)
+    .polygonsTransitionDuration(400)
     (document.getElementById('globe'));
 
 const nameMapping = {
@@ -51,22 +55,6 @@ const nameMapping = {
 async function loadCountries() {
     const res = await fetch('/static/model/ne_110m_admin_0_countries.geojson');
     const countries = await res.json();
-
-    // Load the country data for initial rendering
-    const countryDataPromises = countries.features.map(async (d) => {
-        // Use the mapping to determine the country name
-        const countryName = nameMapping[d.properties.ADMIN] || d.properties.ADMIN;
-
-        // Fetch data for the country
-        const country2024Data = await Fetch2024CountryData(countryName);
-        countryData[countryName] = country2024Data; // Store renewable energy data using the mapped name
-
-        // Initially set the country color to uniformColor
-        countryData[countryName + '_color'] = uniformColor; // Save uniform color for each country
-    });
-
-    // Wait for all promises to resolve before proceeding
-    await Promise.all(countryDataPromises);
 
     // Update the globe with the countries
     world.polygonsData(countries.features.filter(d => d.properties.ISO_A2 !== 'AQ'));
@@ -123,7 +111,6 @@ function updateCountryColor(countryName) {
 
 // Reset the slider value based on the country color
 function resetSliderValue(countryName) {
-    // Use renewableData to set the slider value (if you want to reflect this)
     const renewableData = countryData[countryName]; // Get current renewable data
     yearSlider.value = renewableData; // Set slider value to current renewable data
     document.getElementById('yearValue').textContent = renewableData; // Update the display value

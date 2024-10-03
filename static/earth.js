@@ -42,20 +42,36 @@ const world = Globe()
     .polygonsTransitionDuration(300)
     (document.getElementById('globe'));
 
-async function loadCountries() {
-    const res = await fetch('/static/model/ne_110m_admin_0_countries.geojson');
-    const countries = await res.json();
-
-    // Load the country data for initial rendering
-    countries.features.forEach(d => {
-        countryData[d.properties.ISO_A2] = 0; // Initialize with zero or your desired initial value
-    });
-
-    // Update the globe with the countries
-    world.polygonsData(countries.features.filter(d => d.properties.ISO_A2 !== 'AQ'));
-    loadingScreen.style.display = 'none';
-    instructions.style.display = 'block';
-}
+    async function loadCountries() {
+      const res = await fetch('/static/model/ne_110m_admin_0_countries.geojson');
+      const countries = await res.json();
+  
+      // Create a mapping of original names to desired names
+      const nameMapping = {
+          "United States of America": "United States"
+      };
+  
+      // Load the country data for initial rendering
+      const countryDataPromises = countries.features.map(async (d) => {
+          // Use the mapping to determine the country name
+          const countryName = nameMapping[d.properties.ADMIN] || d.properties.ADMIN;
+  
+          // Fetch data for the country using the mapped name
+          const country2024Data = await Fetch2024CountryData(countryName);
+          countryData[d.properties.ISO_A2] = country2024Data;
+  
+          // Optional: Update the country properties with the new name for display
+          d.properties.ADMIN = countryName; // Update the property directly if you need to reflect the change
+      });
+  
+      // Wait for all promises to resolve before proceeding
+      await Promise.all(countryDataPromises);
+  
+      // Update the globe with the countries
+      world.polygonsData(countries.features.filter(d => d.properties.ISO_A2 !== 'AQ'));
+      loadingScreen.style.display = 'none';
+      instructions.style.display = 'block';
+  }
 
 // Handle slider input change
 yearSlider.addEventListener('input', async () => {

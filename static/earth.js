@@ -56,7 +56,7 @@ const world = Globe()
         // After fetching, reset the UI
         resetUI(selectedCountry);
     })
-    .polygonsTransitionDuration(400)
+    .polygonsTransitionDuration(600)
     (document.getElementById('globe'));
 
 const nameMapping = {
@@ -69,8 +69,12 @@ async function loadCountries() {
 
     // Update the globe with the countries
     world.polygonsData(countries.features.filter(d => d.properties.ISO_A2 !== 'AQ'));
-    loadingScreen.style.display = 'none';
-    instructions.style.display = 'block';
+
+    // Delay hiding the loading screen to allow transitions to appear
+    setTimeout(() => {
+        loadingScreen.style.display = 'none'; 
+        instructions.style.display = 'block'; 
+    }, 600); 
 }
 
 // Handle slider input change

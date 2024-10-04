@@ -456,7 +456,6 @@ body, html {
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 1; /* Lower than the slider */
 }
 
 .slider-container {
@@ -466,10 +465,8 @@ body, html {
   z-index: 10; /* Higher than the globe */
   margin: 20px;
   font-size: 1.5em;
-  background-color: rgba(26, 26, 46, 0.8);
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .renewable-energy-display {

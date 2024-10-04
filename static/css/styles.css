@@ -518,3 +518,57 @@ input[type="range"]::-ms-thumb {
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.3); /* Shadow for thumb */
 }
 
+
+/* Styles for smaller viewports */
+@media (max-width: 1056px) {
+  #instructions {
+    font-size: 1.5em;
+  }
+}
+
+
+@media (max-width: 768px) {
+  body {
+    font-size: 14px; /* Reduce font size for smaller screens */
+  }
+
+  #instructions {
+    font-size: 1em;
+  }
+
+  .slider-container {
+    font-size: 1.2em; /* Scale down slider container font size */
+    padding: 15px; /* Adjust padding */
+  }
+
+  .renewable-energy-display {
+    font-size: 1em; /* Scale down renewable energy display */
+  }
+
+  input[type="range"] {
+    width: 150px; /* Reduce slider width */
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    font-size: 12px; /* Further reduce font size for very small screens */
+  }
+
+  #instructions {
+    font-size: 0.8em;
+  }
+
+  .slider-container {
+    font-size: 1em; /* Further scale down slider container font size */
+    padding: 10px; /* Adjust padding */
+  }
+
+  .renewable-energy-display {
+    font-size: 0.9em; /* Adjust renewable energy display size */
+  }
+
+  input[type="range"] {
+    width: 120px; /* Reduce slider width more */
+  }
+}

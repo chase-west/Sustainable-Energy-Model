@@ -169,4 +169,19 @@ function displaySlider() {
     instructions.style.display = 'none';
 }
 
+// Function to handle resizing of the globe
+function handleWindowResize() {
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+
+    // Resize the globe's canvas
+    world.width(width).height(height);
+}
+
+// Add event listener to handle window resizing
+window.addEventListener('resize', handleWindowResize);
+
+// Call the resize function immediately to set the initial size
+handleWindowResize();
+
 loadCountries(); // Start loading countries

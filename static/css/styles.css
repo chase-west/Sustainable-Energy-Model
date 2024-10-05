@@ -81,7 +81,8 @@ body, html {
 .hero-section {
   height: 100vh;
   display: flex;
-  justify-content: center;
+  flex-direction: column; 
+  justify-content: center; 
   align-items: center;
   text-align: center;
   background: radial-gradient(circle, rgba(43, 45, 66, 1), rgba(10, 24, 49, 1));
@@ -113,6 +114,7 @@ body, html {
   font-size: 1.2em;
   margin-bottom: 30px;
   transition-delay: 0.3s;
+  margin-bottom: 10px; 
 }
 
 #explore-btn {
@@ -219,12 +221,11 @@ body, html {
 
 /* Energy Animation */
 .animation-container {
-  opacity: 0;
   position: absolute;
-  top: 15%;
+  top: 15%; 
   left: 0;
   width: 100%;
-  height: 100%;
+  height: auto; 
   z-index: 1;
   overflow: hidden;
   animation: fadeInUp 1s ease forwards;

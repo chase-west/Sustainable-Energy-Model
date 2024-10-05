@@ -5,7 +5,7 @@
 - Meta Prophet Data Prediction: Utilizes Meta's Prophet procedure to predict renewable energy production for each country.
 - Front-end Visualization: Visualizes predicted energy production data using a 3d map of the world.
 - Backend Data Fetching: Fetches prediction data from a Flask backend connected to an online MongoDB database.
-- 
+  
 # Getting Started
 To get started with this project, follow these steps:
 

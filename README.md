@@ -1,16 +1,11 @@
 # Visit the site here! 
 [Production Website](https://sustainable-energy-model.onrender.com)
 
-# Renewable Energy Prediction Project
-This project utilizes linear regression to predict the renewable energy production for every country over the next 100 years. The predicted data is visualized on a front-end interface, which fetches the data from a Flask backend connected to an online MongoDB database.
-
-# Project Overview
-The goal of this project is to provide insights into the future renewable energy production of various countries, enabling stakeholders to make informed decisions regarding energy planning and policy-making. By utilizing linear regression modeling techniques, the project forecasts energy production trends for the next century.
-
 # Features
 - Meta Prophet Data Prediction: Utilizes Meta's Prophet procedure to predict renewable energy production for each country.
 - Front-end Visualization: Visualizes predicted energy production data using a 3d map of the world.
 - Backend Data Fetching: Fetches prediction data from a Flask backend connected to an online MongoDB database.
+- 
 # Getting Started
 To get started with this project, follow these steps:
 

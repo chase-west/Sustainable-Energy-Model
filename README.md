@@ -15,7 +15,7 @@ To get started with this project, follow these steps:
 - Launch the Flask server to start serving prediction data (Run app.py).
 - Open the front-end interface in a web browser to visualize the predicted energy production.
 # Note
-The database isn't provided. If you would like, you can use your own online mongo database. There is a free version which I used for this project. To create the data for this database run the create_and_store_data() function in the LinearRegression.py file. 
+The database isn't provided. If you would like, you can use your own online mongo database. There is a free version which I used for this project. To create the data for this database run the create_and_store_data() function in the dataPrediciton.py file. 
 
 # Contributing
 We are not accepting contributions right now as this app will be submitted for the congressional app challenge. 

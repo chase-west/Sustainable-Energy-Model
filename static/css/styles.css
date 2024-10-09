@@ -438,18 +438,10 @@ body, html {
   font-size: 2em;
   color: #fcfffe;
   text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-  animation: breath 4s infinite ease-in-out;
   pointer-events: none;
+  user-select: none;
 }
 
-@keyframes breath {
-  0%, 100% {
-    transform: translate(-50%, -50%) scale(1);
-  }
-  50% {
-    transform: translate(-50%, -50%) scale(1.2);
-  }
-}
 
 #globe {
   position: absolute;
@@ -517,6 +509,26 @@ input[type="range"]::-ms-thumb {
     cursor: pointer; /* Pointer cursor */
     border-radius: 50%; /* Round shape */
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.3); /* Shadow for thumb */
+}
+
+/* Home icon button styles */
+.home-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  margin-top: 15px;
+  font-size: 2em; 
+  color: #4ecca3; 
+  z-index: 10; 
+  text-decoration: none; 
+}
+
+.home-button i {
+  transition: transform 0.2s ease; 
+}
+
+.home-button:hover i {
+  transform: scale(1.1);
 }
 
 

@@ -129,13 +129,6 @@ function updateCountryColor(countryName) {
     });
 }
 
-// Reset the slider value based on the country color
-function resetSliderValue(countryName) {
-    const renewableData = countryData[countryName]; // Get current renewable data
-    yearSlider.value = renewableData; // Set slider value to current renewable data
-    document.getElementById('yearValue').textContent = renewableData; // Update the display value
-}
-
 function resetUI(countryName) {
     // Check if the country has saved renewable data
     if (countryName in countryData) {

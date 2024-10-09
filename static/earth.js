@@ -7,7 +7,7 @@ let sliderTimer;
 const loadingScreen = document.getElementById('loading-screen');
 const instructions = document.getElementById('instructions');
 
-const uniformColor = '#69b3a2'; // Uniform color for all countries
+const uniformColor = '#34A56F'; // Uniform color for all countries
 const colorScale = d3.scaleLinear()
 .domain([0, 8000]) 
 .range(['red', 'yellow']); 
@@ -19,8 +19,8 @@ let sliderDisplayed = false; // Flag to check if the slider has been displayed
 let selectedCountry = null; // Track the currently selected country
 
 const world = Globe()
+    .globeImageUrl("https://www.icolorpalette.com/download/solidcolorimage/375673_solid_color_background_icolorpalette.png")
     .lineHoverPrecision(0)
-    .polygonAltitude(0.06)
     .polygonCapColor(() => uniformColor) // Set uniform color for all countries
     .polygonSideColor(() => 'rgba(0, 100, 0, 0.15)')
     .polygonStrokeColor(() => '#111')

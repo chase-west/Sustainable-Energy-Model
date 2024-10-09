@@ -60,7 +60,16 @@ const world = Globe()
     (document.getElementById('globe'));
 
 const nameMapping = {
-    "United States of America": "United States"
+    "United States of America": "United States",
+    "United Republic of Tanzania": "Tanzania",
+    "Democratic Republic of the Congo": "Democratic Republic of Congo",
+    "The Bahamas": "Bahamas",
+    "Ivory Coast": "Cote d'Ivoire",
+    "Republic of the Congo": "Congo",
+    "eSwatini": "Eswatini",
+    "Northern Cyprus": "Cyprus",
+    "Somaliland": "Somalia",
+    "Republic of Serbia": "Serbia"
 };
 
 async function loadCountries() {

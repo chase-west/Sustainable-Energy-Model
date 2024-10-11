@@ -451,6 +451,31 @@ body, html {
   height: 100%;
 }
 
+/* Insights Container */
+.insights-container {
+  position: fixed;
+  top: 150px;
+  left: 20px;
+  width: 250px;
+  background-color: rgba(22, 33, 62, 0.8);
+  padding: 20px;
+  margin: 20px;
+  border-radius: 10px;
+  color: #fff;
+  z-index: 10;
+  font-size: 0.9em;
+}
+
+.insights-container h2, .insights-container h3 {
+  color: #4ecca3;
+  margin-top: 0;
+}
+
+.insights-container ol {
+  padding-left: 20px;
+  margin-bottom: 0;
+}
+
 .slider-container {
   position: fixed; /* Fixed positioning */
   top: 10px; /* Position at the top */
@@ -460,6 +485,7 @@ body, html {
   font-size: 1.5em;
   padding: 20px;
   border-radius: 10px;
+  user-select: none;
 }
 
 .renewable-energy-display {
@@ -511,20 +537,19 @@ input[type="range"]::-ms-thumb {
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.3); /* Shadow for thumb */
 }
 
-/* Home icon button styles */
+/* Home Button */
 .home-button {
-  position: absolute;
+  position: fixed;
   top: 20px;
   right: 20px;
-  margin-top: 15px;
-  font-size: 2em; 
-  color: #2e8b6c; 
-  z-index: 10; 
-  text-decoration: none; 
+  font-size: 2em;
+  color: #2e8b6c;
+  z-index: 11;
+  text-decoration: none;
 }
 
 .home-button i {
-  transition: transform 0.2s ease; 
+  transition: transform 0.2s ease;
 }
 
 .home-button:hover i {

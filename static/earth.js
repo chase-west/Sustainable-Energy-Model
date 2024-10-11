@@ -3,6 +3,8 @@ import { fetchRenewableData, Fetch2024CountryData } from "./app.js";
 let energy = 0;
 const renewableEnergyValue = document.getElementById('renewableEnergyValue');
 const yearSlider = document.getElementById('yearSlider');
+const insightsContainer = document.getElementById('insights-container');
+
 let sliderTimer;
 const loadingScreen = document.getElementById('loading-screen');
 const instructions = document.getElementById('instructions');
@@ -15,46 +17,42 @@ const colorScale = d3.scaleLinear()
 let countryData = {}; // To store renewable energy data
 let countryYears = {}; // To keep track of country years
 
-let sliderDisplayed = false; // Flag to check if the slider has been displayed
+let sliderDisplayed = false;
 let selectedCountry = null; // Track the currently selected country
+
+let globalRenewableData = {};
+let topProducers = [];
+let growthRates = {};
 
 const world = Globe()
     .globeImageUrl("https://www.icolorpalette.com/download/solidcolorimage/375673_solid_color_background_icolorpalette.png")
     .lineHoverPrecision(0)
-    .polygonCapColor(() => uniformColor) // Set uniform color for all countries
+    .polygonCapColor(() => uniformColor)
     .polygonSideColor(() => 'rgba(0, 100, 0, 0.15)')
     .polygonStrokeColor(() => '#111')
     .polygonLabel(({ properties: d }) => `
-      <b>${d.ADMIN}</b> <br />
+        <b>${d.ADMIN}</b> <br />
     `)
     .onPolygonClick(async (hoverD) => {
-        const countryName = nameMapping[hoverD.properties.ADMIN] || hoverD.properties.ADMIN; // Map name
-        selectedCountry = countryName; // Update the selected country
-    
+        const countryName = nameMapping[hoverD.properties.ADMIN] || hoverD.properties.ADMIN;
+        selectedCountry = countryName;
+
         // Display the slider the first time a country is clicked
         if (!sliderDisplayed) {
             displaySlider();
-            sliderDisplayed = true; // Set the flag to true
+            sliderDisplayed = true; 
         }
-    
-        // Check if data for the selected country is already fetched
+
         if (!countryData[selectedCountry]) {
-            // Fetch data only if it's not already available
             const renewableData = await Fetch2024CountryData(selectedCountry);
-    
-            // Store the fetched renewable data for immediate use
-            countryData[selectedCountry] = renewableData; // Store renewable energy data
-    
-            // Update the color based on the fetched renewable data immediately
-            const newColor = colorScale(renewableData); // Get the color from the scale
-            countryData[selectedCountry + '_color'] = newColor; // Store the new color for the country
-    
-            // Apply the color immediately to the country
+            countryData[selectedCountry] = renewableData;
+            const newColor = colorScale(renewableData);
+            countryData[selectedCountry + '_color'] = newColor;
             updateCountryColor(selectedCountry);
         }
         
-        // After fetching, reset the UI
         resetUI(selectedCountry);
+        updateDataInsights(selectedCountry);
     })
     .polygonsTransitionDuration(600)
     (document.getElementById('globe'));
@@ -86,13 +84,24 @@ async function loadCountries() {
     }, 600); 
 }
 
+function displaySlider() {
+    const sliderContainers = document.getElementsByClassName('slider-container');
+    Array.from(sliderContainers).forEach(container => {
+        container.style.display = 'block';
+    });
+    insightsContainer.style.display = 'block';
+    instructions.style.display = 'none';
+}
+
+let currentYear = 2024; 
+
 // Handle slider input change
 yearSlider.addEventListener('input', async () => {
-    const year = parseInt(yearSlider.value);
-    updateSliderYear(year);
+    currentYear = parseInt(yearSlider.value);
+    updateSliderYear(currentYear);
 
     if (selectedCountry) {
-        await handleSliderInput(year, selectedCountry); // Call handleSliderInput with the selected country
+        await handleSliderInput(currentYear, selectedCountry);
     }
 });
 
@@ -102,22 +111,92 @@ async function handleSliderInput(year, selectedCountry) {
         if (selectedCountry) {
             try {
                 const renewableData = await fetchRenewableData(selectedCountry, year);
-
-                // Store the renewable data and year for future reference
-                countryData[selectedCountry] = renewableData; // Save the renewable energy value
-                countryYears[selectedCountry] = year; // Save the selected year
-
+                countryData[selectedCountry] = renewableData;
+                countryYears[selectedCountry] = year;
                 updateCountryData(selectedCountry, renewableData);
-
-                // Update the color based on renewable energy value
-                const newColor = colorScale(renewableData); // Get color from scale
-                countryData[selectedCountry + '_color'] = newColor; // Save the new color for the selected country
-                updateCountryColor(selectedCountry); // Apply color change on the globe
+                const newColor = colorScale(renewableData);
+                countryData[selectedCountry + '_color'] = newColor;
+                updateCountryColor(selectedCountry);
+                updateDataInsights(selectedCountry, year);
             } catch (error) {
                 console.error('Error fetching renewable data:', error);
             }
         }
     }, 200);
+}
+
+async function updateDataInsights(country, year) {
+    // Fetch global data for the selected year
+    const globalData = await fetchGlobalData(year);
+    globalRenewableData[year] = globalData;
+    
+    // Calculate top producers
+    topProducers = Object.entries(globalData)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 5);
+    
+    // Calculate growth rates
+    if (year > 2024) {
+        const previousYearData = await fetchGlobalData(year - 1);
+        growthRates = {};
+        for (const [country, value] of Object.entries(globalData)) {
+            const previousValue = previousYearData[country] || 0;
+            if (previousValue > 0) {
+                growthRates[country] = ((value - previousValue) / previousValue) * 100;
+            } else {
+                growthRates[country] = value > 0 ? 100 : 0; // 100% growth if previous was 0, 0% if both are 0
+            }
+        }
+    } else {
+        growthRates = {}; // No growth rates available for 2024
+    }
+    
+    // Update the UI with new insights
+    updateInsightsUI(country, year);
+}
+
+function updateInsightsUI(country, year) {
+    const insightsContainer = document.getElementById('insights-container');
+    
+    let insightsHTML = `
+        <h2>Data Insights for ${country} in ${year}</h2>
+        <p>Renewable Energy Production: ${countryData[country]} TWh</p>
+        <p>Global Ranking: ${getGlobalRanking(country, year)}</p>
+    `;
+
+    if (year > 2024) {
+        insightsHTML += `<p>Growth Rate: ${growthRates[country]?.toFixed(2) || 'N/A'}%</p>`;
+    }
+
+    insightsHTML += `
+        <h3>Top 5 Renewable Energy Producers:</h3>
+        <ol>
+            ${topProducers.map(([country, value]) => `<li>${country}: ${value} TWh</li>`).join('')}
+        </ol>
+    `;
+    
+    insightsContainer.innerHTML = insightsHTML;
+}
+
+function getGlobalRanking(country, year) {
+    const globalData = globalRenewableData[year];
+    const sortedCountries = Object.entries(globalData)
+        .sort((a, b) => b[1] - a[1]);
+    return sortedCountries.findIndex(([c, _]) => c === country) + 1;
+}
+
+async function fetchGlobalData(year) {
+    return fetch(`/global-renewable-data?year=${year}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .catch(error => {
+            console.error('Error fetching global renewable data:', error);
+            return {};
+        });
 }
 
 // Function to update the renewable energy data for a specific country
@@ -147,32 +226,25 @@ function resetUI(countryName) {
         renewableEnergyValue.textContent = '0 TWh'; // Default to 0 TWh if no data is available
     }
 
-    let year = new Date().getFullYear(); // Default to the current year
     if (countryName in countryYears) {
-        year = countryYears[countryName]; // Get the saved year
-        yearSlider.value = year; // Set the slider to the saved year
-        document.getElementById('yearValue').textContent = year; // Display the saved year
+        currentYear = countryYears[countryName]; // Get the saved year
     } else {
-        yearSlider.value = year; // Default to the current year if no saved year exists
-        document.getElementById('yearValue').textContent = year;
+        currentYear = 2024; // Default to 2024 if no saved year exists
     }
+    
+    yearSlider.value = currentYear;
+    document.getElementById('yearValue').textContent = currentYear;
     
     // Update the country color if saved
     updateCountryColor(countryName);
+
+    // Update insights with the current year
+    updateDataInsights(countryName, currentYear);
 }
 
 // Function to update the slider value based on the selected year
 function updateSliderYear(newYear) {
     document.getElementById('yearValue').textContent = newYear; // Update the slider value
-}
-
-// Function to display the slider and hide the instructions
-function displaySlider() {
-    const sliderContainers = document.getElementsByClassName('slider-container');
-    Array.from(sliderContainers).forEach(container => {
-        container.style.display = 'block';
-    });
-    instructions.style.display = 'none';
 }
 
 // Function to handle resizing of the globe

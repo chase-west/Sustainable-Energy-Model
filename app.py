@@ -61,6 +61,19 @@ def get_renewable_data_2024():
             return jsonify({'error': 'Country not found'}), 404
     else:
         return jsonify({'error': 'Country parameter is required'}), 400
+    
+@app.route('/global-renewable-data', methods=['GET'])
+def get_global_renewable_data():
+    year = int(request.args.get('year'))
+    result = collection.find({'year': year}, {'_id': 0, 'country': 1, 'predicted_renewable_electricity': 1})
+    
+    global_data = {}
+    for data in result:
+        country_name = data['country']
+        renewable_electricity = round(data['predicted_renewable_electricity'], 2)
+        global_data[country_name] = renewable_electricity
+    
+    return jsonify(global_data), 200
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')

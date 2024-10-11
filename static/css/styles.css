@@ -476,6 +476,27 @@ body, html {
   margin-bottom: 0;
 }
 
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .insights-container {
+    width: 200px; /* Reduce width */
+    top: 100px; /* Adjust top position */
+    left: 10px; /* Reduce left position */
+    padding: 15px; /* Adjust padding */
+    font-size: 0.8em; /* Reduce font size */
+  }
+}
+
+@media (max-width: 480px) {
+  .insights-container {
+    width: 150px; /* Further reduce width */
+    top: 80px; /* Adjust top position */
+    left: 5px; /* Further reduce left position */
+    padding: 10px; /* Adjust padding */
+    font-size: 0.6em; /* Further reduce font size */
+  }
+}
+
 .slider-container {
   position: fixed; /* Fixed positioning */
   top: 10px; /* Position at the top */

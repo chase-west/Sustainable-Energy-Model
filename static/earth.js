@@ -9,7 +9,7 @@ const instructions = document.getElementById('instructions');
 
 const uniformColor = '#34A56F'; // Uniform color for all countries
 const colorScale = d3.scaleLinear()
-.domain([0, 8000]) 
+.domain([0, 4000]) 
 .range(['red', 'yellow']); 
 
 let countryData = {}; // To store renewable energy data

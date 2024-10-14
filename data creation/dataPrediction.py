@@ -146,7 +146,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     # Load the data
-    data = pd.read_csv('newdata.csv')
+    data = pd.read_csv('cleaned_file.csv')
     countries = data['Entity'].unique()
 
     if args.country:

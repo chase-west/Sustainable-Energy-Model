@@ -132,6 +132,7 @@ async function updateDataInsights(country, year) {
     
     // Calculate top producers
     topProducers = Object.entries(globalData)
+        .filter(([country, _]) => country !== 'World') // exclude world from top producers list
         .sort((a, b) => b[1] - a[1])
         .slice(0, 5);
     
@@ -175,6 +176,11 @@ function updateInsightsUI(country, year) {
         </ol>
     `;
     
+    insightsHTML += `
+        <h3>Global Renewable Energy:</h3>
+        <p>World: ${globalRenewableData[year]['World']} TWh</p>
+    `;
+
     insightsContainer.innerHTML = insightsHTML;
 }
 

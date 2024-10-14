@@ -3,7 +3,7 @@ import { fetchRenewableData, Fetch2024CountryData } from "./app.js";
 let energy = 0;
 const renewableEnergyValue = document.getElementById('renewableEnergyValue');
 const yearSlider = document.getElementById('yearSlider');
-const insightsContainer = document.getElementById('insights-container');
+const toggleButton = document.getElementById('toggleInsights');
 
 let sliderTimer;
 const loadingScreen = document.getElementById('loading-screen');
@@ -25,7 +25,7 @@ let topProducers = [];
 let growthRates = {};
 
 const world = Globe()
-    .globeImageUrl("https://www.icolorpalette.com/download/solidcolorimage/375673_solid_color_background_icolorpalette.png")
+    .globeImageUrl("/static/images/earthbackground.png")
     .lineHoverPrecision(0)
     .polygonCapColor(() => uniformColor)
     .polygonSideColor(() => 'rgba(0, 100, 0, 0.15)')
@@ -89,7 +89,7 @@ function displaySlider() {
     Array.from(sliderContainers).forEach(container => {
         container.style.display = 'block';
     });
-    insightsContainer.style.display = 'block';
+    toggleButton.style.display = 'block'
     instructions.style.display = 'none';
 }
 

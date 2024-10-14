@@ -451,10 +451,31 @@ body, html {
   height: 100%;
 }
 
+/* Toggle Button */
+.toggle-button {
+  position: fixed;
+  top: 135px;
+  left: 20px;
+  z-index: 10;
+  margin: 20px;
+  padding: 10px 15px;
+  background-color: #4ecca3;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+}
+
+.toggle-button:hover {
+  background-color: #34A56F;
+  transition: background-color 200ms linear;
+}
+
 /* Insights Container */
 .insights-container {
   position: fixed;
-  top: 150px;
+  top: 190px;
   left: 20px;
   width: 250px;
   background-color: rgba(22, 33, 62, 0.8);
@@ -464,6 +485,15 @@ body, html {
   color: #fff;
   z-index: 10;
   font-size: 0.9em;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+.insights-container.open {
+  max-height: 500px;
+  opacity: 1;
 }
 
 .insights-container h2, .insights-container h3 {
@@ -478,30 +508,45 @@ body, html {
 
 /* Responsive Adjustments */
 @media (max-width: 768px) {
+  .toggle-button {
+    top: 120px;
+    left: 10px;
+    font-size: 0.9em;
+    padding: 8px 12px;
+  }
+
   .insights-container {
-    width: 200px; /* Reduce width */
-    top: 100px; /* Adjust top position */
-    left: 10px; /* Reduce left position */
-    padding: 15px; /* Adjust padding */
-    font-size: 0.8em; /* Reduce font size */
+    width: 200px; 
+    top: 170px;
+    left: 10px; 
+    padding: 15px; 
+    font-size: 0.8em; 
   }
 }
 
 @media (max-width: 480px) {
+  .toggle-button {
+    top: 100px;
+    left: 5px;
+    font-size: 0.8em;
+    padding: 7px 10px;
+  }
+
   .insights-container {
-    width: 150px; /* Further reduce width */
-    top: 80px; /* Adjust top position */
-    left: 5px; /* Further reduce left position */
-    padding: 10px; /* Adjust padding */
-    font-size: 0.6em; /* Further reduce font size */
+    width: 150px; 
+    top: 150px; 
+    left: 5px; 
+    padding: 10px;
+    font-size: 0.6em; 
   }
 }
 
+/* Slider Container */
 .slider-container {
-  position: fixed; /* Fixed positioning */
-  top: 10px; /* Position at the top */
-  left: 10px; /* Position on the left */
-  z-index: 10; /* Higher than the globe */
+  position: fixed; 
+  top: 10px;
+  left: 10px; 
+  z-index: 10;
   margin: 20px;
   font-size: 1.5em;
   padding: 20px;
@@ -516,14 +561,14 @@ body, html {
 }
 
 input[type="range"] {
-    -webkit-appearance: none; /* Removes default styling */
-    width: 200px; /* Set width */
-    height: 8px; /* Set height */
-    background: #4ecca3; /* Background color */
-    border-radius: 5px; /* Rounded corners */
-    outline: none; /* Removes outline */
-    opacity: 0.7; /* Slight transparency */
-    transition: opacity 0.2s; /* Smooth transition */
+    -webkit-appearance: none; 
+    width: 200px;
+    height: 8px; 
+    background: #4ecca3; 
+    border-radius: 5px; 
+    outline: none;
+    opacity: 0.7; 
+    transition: opacity 0.2s; 
 }
 
 input[type="range"]:hover {
@@ -531,31 +576,31 @@ input[type="range"]:hover {
 }
 
 input[type="range"]::-webkit-slider-thumb {
-    -webkit-appearance: none; /* Custom thumb */
-    width: 20px; /* Thumb width */
-    height: 20px; /* Thumb height */
-    background: #ffffff; /* Thumb color */
-    cursor: pointer; /* Pointer cursor */
-    border-radius: 50%; /* Round shape */
-    box-shadow: 0 0 4px rgba(0, 0, 0, 0.3); /* Shadow for thumb */
+    -webkit-appearance: none; 
+    width: 20px; 
+    height: 20px; 
+    background: #ffffff;
+    cursor: pointer; 
+    border-radius: 50%; 
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
 }
 
 input[type="range"]::-moz-range-thumb {
-    width: 20px; /* Thumb width */
-    height: 20px; /* Thumb height */
-    background: #ffffff; /* Thumb color */
-    cursor: pointer; /* Pointer cursor */
-    border-radius: 50%; /* Round shape */
-    box-shadow: 0 0 4px rgba(0, 0, 0, 0.3); /* Shadow for thumb */
+    width: 20px; 
+    height: 20px;
+    background: #ffffff; 
+    cursor: pointer;
+    border-radius: 50%; 
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.3); 
 }
 
 input[type="range"]::-ms-thumb {
-    width: 20px; /* Thumb width */
-    height: 20px; /* Thumb height */
-    background: #ffffff; /* Thumb color */
-    cursor: pointer; /* Pointer cursor */
-    border-radius: 50%; /* Round shape */
-    box-shadow: 0 0 4px rgba(0, 0, 0, 0.3); /* Shadow for thumb */
+    width: 20px; 
+    height: 20px; 
+    background: #ffffff; 
+    cursor: pointer; 
+    border-radius: 50%; 
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.3); 
 }
 
 /* Home Button */

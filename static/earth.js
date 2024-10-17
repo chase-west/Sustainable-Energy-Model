@@ -4,22 +4,16 @@ let energy = 0;
 const renewableEnergyValue = document.getElementById('renewableEnergyValue');
 const yearSlider = document.getElementById('yearSlider');
 const toggleButton = document.getElementById('toggleInsights');
-
 let sliderTimer;
 const loadingScreen = document.getElementById('loading-screen');
 const instructions = document.getElementById('instructions');
-
 const uniformColor = '#34A56F'; // Uniform color for all countries
-const colorScale = d3.scaleLinear()
-.domain([0, 4000]) 
-.range(['red', 'yellow']); 
+const colorScale = d3.scaleLinear().domain([0, 4000]) .range(['red', 'yellow']); 
 
-let countryData = {}; // To store renewable energy data
-let countryYears = {}; // To keep track of country years
-
+let countryData = {}; 
+let countryYears = {}; 
 let sliderDisplayed = false;
-let selectedCountry = null; // Track the currently selected country
-
+let selectedCountry = null; 
 let globalRenewableData = {};
 let topProducers = [];
 let growthRates = {};
@@ -246,11 +240,9 @@ function updateSliderYear(newYear) {
 function handleWindowResize() {
     const width = window.innerWidth;
     const height = window.innerHeight;
-
     // Resize the globe's canvas
     world.width(width).height(height);
 }
-
 // Add event listener to handle window resizing
 window.addEventListener('resize', handleWindowResize);
 

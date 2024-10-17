@@ -9,10 +9,10 @@ from tqdm import tqdm
 import argparse
 import matplotlib.ticker as ticker
 
-# Load environment variables
+# Load env vars
 load_dotenv()
 
-# MongoDB connection URI
+# Mongo URI
 uri = os.getenv("MONGO_URI")
 
 def connect_to_mongodb():
@@ -22,10 +22,8 @@ def connect_to_mongodb():
 
 def create_and_store_data(use_db=False, specific_country=None):
     all_predictions = []
-    
     if use_db:
         collection = connect_to_mongodb()
-    
     countries_to_process = [specific_country] if specific_country else countries
 
     for country in tqdm(countries_to_process, desc="Processing countries"):
@@ -35,20 +33,18 @@ def create_and_store_data(use_db=False, specific_country=None):
         if filtered_data.empty or filtered_data.shape[0] < 2:
             print(f"No valid data available or not enough data for {country}")
             continue
-        
+
         # Prepare data for Prophet
         prophet_data = filtered_data[['Year', 'Total Renewable Generation - TWh']].rename(columns={'Year': 'ds', 'Total Renewable Generation - TWh': 'y'})
         prophet_data['ds'] = pd.to_datetime(prophet_data['ds'], format='%Y')
 
-        # Create and fit the model
+        # Fit data to model
         model = Prophet(yearly_seasonality=True)
         model.fit(prophet_data)
 
-        # Create future dataframe for predictions
+        # Create future dataframe and predict
         future_dates = pd.date_range(start='2024-01-01', end='2125-01-01', freq='YE')
         future = pd.DataFrame({'ds': future_dates})
-
-        # Make predictions
         forecast = model.predict(future)
         
         # Prepare predicted data
@@ -91,7 +87,6 @@ def plot_data(country, predictions=None, use_db=False):
     if df.empty:
         print(f"No data available for {country}")
         return
-
     plt.figure(figsize=(12, 6))
     plt.plot(df['year'], df['predicted_renewable_electricity'], label='Predicted', marker='o')
     plt.fill_between(df['year'], df['lower_bound'], df['upper_bound'], alpha=0.3)
@@ -101,9 +96,8 @@ def plot_data(country, predictions=None, use_db=False):
     plt.legend()
 
     # Format y-axis to show as whole numbers
-    ax = plt.gca()  # Get the current axis
+    ax = plt.gca() 
     ax.yaxis.set_major_formatter(ticker.FuncFormatter(lambda x, _: f'{int(x):,}'))
-
     plt.show()
 
 def get_highest_renewable_energy(predictions=None, use_db=False):
@@ -128,7 +122,7 @@ def get_highest_renewable_energy(predictions=None, use_db=False):
         for doc in result:
             country = doc['_id']
             max_renewable_energy = doc['max_renewable_energy']
-          #  print(f"Country: {country}, Highest Predicted Renewable Energy: {max_renewable_energy:.2f} TWh")
+          #print(f"Country: {country}, Highest Predicted Renewable Energy: {max_renewable_energy:.2f} TWh")
     else:
         if predictions is None:
             print("No predictions available. Run create_and_store_data first.")
@@ -158,7 +152,7 @@ if __name__ == "__main__":
         else:
             print(f"Country '{args.country}' not found in the dataset.")
     else:
-        # Process all countries if no specific country is given
+        #Call function for every country if no given country 
         predictions = create_and_store_data(use_db=args.use_db)
 
     #get_highest_renewable_energy(predictions, use_db=args.use_db)

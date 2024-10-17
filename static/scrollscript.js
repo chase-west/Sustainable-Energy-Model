@@ -4,8 +4,6 @@ document.addEventListener('DOMContentLoaded', () => {
   let currentSectionIndex = 0;
   let isTransitioning = false;
 
-   
-
   window.addEventListener('resize', updateEnergyFlow);
   updateEnergyFlow();
 

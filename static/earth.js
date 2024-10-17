@@ -177,7 +177,7 @@ function updateInsightsUI(country, year) {
     `;
     
     insightsHTML += `
-        <h3>Global Renewable Energy:</h3>
+        <h3 id = "global-energy-text">Global Renewable Energy:</h3>
         <p>World: ${globalRenewableData[year]['World']} TWh</p>
     `;
 

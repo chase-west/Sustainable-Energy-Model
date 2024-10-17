@@ -501,6 +501,10 @@ body, html {
   margin-top: 0;
 }
 
+#global-energy-text {
+  margin-top: 1em;
+}
+
 .insights-container ol {
   padding-left: 20px;
   margin-bottom: 0;

@@ -30,9 +30,6 @@ const world = Globe()
     .polygonCapColor(() => uniformColor)
     .polygonSideColor(() => 'rgba(0, 100, 0, 0.15)')
     .polygonStrokeColor(() => '#111')
-    .polygonLabel(({ properties: d }) => `
-        <b>${d.ADMIN}</b> <br />
-    `)
     .onPolygonClick(async (hoverD) => {
         const countryName = nameMapping[hoverD.properties.ADMIN] || hoverD.properties.ADMIN;
         selectedCountry = countryName;

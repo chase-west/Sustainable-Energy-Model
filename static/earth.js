@@ -52,7 +52,6 @@ const world = Globe()
         }
         
         resetUI(selectedCountry);
-        updateDataInsights(selectedCountry);
     })
     .polygonsTransitionDuration(600)
     (document.getElementById('globe'));

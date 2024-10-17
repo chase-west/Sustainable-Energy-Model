@@ -205,19 +205,17 @@ async function fetchGlobalData(year) {
         });
 }
 
-// Function to update the renewable energy data for a specific country
 function updateCountryData(countryName, renewableData) {
     renewableEnergyValue.textContent = renewableData + ' TWh';
     countryData[countryName] = renewableData;
 }
 
-// Function to update the color of the specified country on the globe
 function updateCountryColor(countryName) {
     const color = countryData[countryName + '_color'] || uniformColor; // Get the saved color or use uniform color
     world.polygonCapColor(feat => {
         const mappedName = nameMapping[feat.properties.ADMIN] || feat.properties.ADMIN; // Map name for color update
         if (mappedName === countryName) {
-            return color; // Return the updated color for the selected country
+            return color;
         }
         return uniformColor; // Return the uniform color for all other countries
     });
@@ -226,14 +224,14 @@ function updateCountryColor(countryName) {
 function resetUI(countryName) {
     // Check if the country has saved renewable data
     if (countryName in countryData) {
-        energy = countryData[countryName]; // Get the saved energy value
-        renewableEnergyValue.textContent = energy + ' TWh'; // Display the saved energy value
+        energy = countryData[countryName]; 
+        renewableEnergyValue.textContent = energy + ' TWh'; 
     } else {
         renewableEnergyValue.textContent = '0 TWh'; // Default to 0 TWh if no data is available
     }
 
     if (countryName in countryYears) {
-        currentYear = countryYears[countryName]; // Get the saved year
+        currentYear = countryYears[countryName]; 
     } else {
         currentYear = 2024; // Default to 2024 if no saved year exists
     }
@@ -241,19 +239,14 @@ function resetUI(countryName) {
     yearSlider.value = currentYear;
     document.getElementById('yearValue').textContent = currentYear;
     
-    // Update the country color if saved
     updateCountryColor(countryName);
-
-    // Update insights with the current year
     updateDataInsights(countryName, currentYear);
 }
 
-// Function to update the slider value based on the selected year
 function updateSliderYear(newYear) {
-    document.getElementById('yearValue').textContent = newYear; // Update the slider value
+    document.getElementById('yearValue').textContent = newYear; 
 }
 
-// Function to handle resizing of the globe
 function handleWindowResize() {
     const width = window.innerWidth;
     const height = window.innerHeight;
@@ -265,7 +258,5 @@ function handleWindowResize() {
 // Add event listener to handle window resizing
 window.addEventListener('resize', handleWindowResize);
 
-// Call the resize function immediately to set the initial size
 handleWindowResize();
-
-loadCountries(); // Start loading countries
+loadCountries();

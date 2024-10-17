@@ -1,4 +1,3 @@
-// Initialize energy flow animation
   const energyFlow = document.querySelector('.energy-flow');
   const energyPath = document.querySelector('.energy-path');
   const energyGlow = document.querySelector('.energy-glow');

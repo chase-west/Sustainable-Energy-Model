@@ -92,9 +92,6 @@ body, html {
 
 /* Text content animation */
 .text-content h1, .text-content p, #explore-btn {
-  opacity: 0;
-  transform: translateY(30px);
-  animation: fadeInUp 1s ease forwards;
 }
 
 .text-content {
@@ -216,8 +213,6 @@ body, html {
 }
 
 
-
-
 /* Energy Animation */
 .animation-container {
   position: absolute;
@@ -273,12 +268,8 @@ body, html {
 @media (max-width: 768px) {
   .animation-container {
     top: 10%;
-    height: 80%;
   }
   
-  .energy-path, .energy-glow {
-    stroke-width: 2;
-  }
 }
 
 /* About Section */

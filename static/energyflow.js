@@ -3,32 +3,11 @@ const energyPath = document.querySelector('.energy-path');
 const energyGlow = document.querySelector('.energy-glow');
 
 function updateEnergyFlow() {
-  const height = window.innerHeight;
-  const width = window.innerWidth;
+    const height = window.innerHeight;
+    const width = window.innerWidth;
 
-  energyFlow.setAttribute('viewBox', `0 0 ${width} ${height}`);
-  const curve = `M0,${height/2} Q${width/4},${height/2-170} ${width/2},${height/2} T${width},${height/2}`;
-  energyPath.setAttribute('d', curve);
-  energyGlow.setAttribute('d', curve);
+    energyFlow.setAttribute('viewBox', `0 0 ${width} ${height}`);
+    const curve = `M0,${height/2} Q${width/4},${height/2-170} ${width/2},${height/2} T${width},${height/2}`;
+    energyPath.setAttribute('d', curve);
+    energyGlow.setAttribute('d', curve);
 }
-
-function throttle(func, limit) {
-  let inThrottle;
-  return function() {
-    const args = arguments;
-    const context = this;
-    if (!inThrottle) {
-      func.apply(context, args);
-      inThrottle = true;
-      setTimeout(() => inThrottle = false, limit);
-    }
-  }
-}
-
-const throttledUpdateEnergyFlow = throttle(updateEnergyFlow, 100);
-
-document.addEventListener('DOMContentLoaded', () => {
-  updateEnergyFlow();
-  window.addEventListener('resize', throttledUpdateEnergyFlow);
-  window.addEventListener('orientationchange', throttledUpdateEnergyFlow);
-});

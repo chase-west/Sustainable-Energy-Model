@@ -92,6 +92,9 @@ body, html {
 
 /* Text content animation */
 .text-content h1, .text-content p, #explore-btn {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInUp 1s ease forwards;
 }
 
 .text-content {
@@ -109,7 +112,9 @@ body, html {
 
 .text-content p {
   font-size: 1.2em;
+  margin-bottom: 30px;
   transition-delay: 0.3s;
+  margin-bottom: 10px; 
 }
 
 #explore-btn {
@@ -120,7 +125,6 @@ body, html {
   color: #1a1a2e;
   text-decoration: none;
   border: none;
-  margin-top: 0.2em;
   border-radius: 5px;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -213,6 +217,8 @@ body, html {
 }
 
 
+
+
 /* Energy Animation */
 .animation-container {
   position: absolute;
@@ -222,6 +228,8 @@ body, html {
   height: auto; 
   z-index: 1;
   overflow: hidden;
+  animation: fadeInUp 1s ease forwards;
+  animation-delay: 0.4s;
 }
 
 .energy-flow {
@@ -248,6 +256,12 @@ body, html {
   animation: flowAnimation 30s linear infinite;
 }
 
+@keyframes flowAnimation {
+  to {
+    stroke-dashoffset: -1000;
+  }
+}
+
 @keyframes fadeInUp {
   0% {
     opacity: 0;
@@ -258,20 +272,6 @@ body, html {
     transform: translateY(0);
   }
 }
-
-@keyframes flowAnimation {
-  to {
-    stroke-dashoffset: -1000;
-  }
-}
-
-@media (max-width: 768px) {
-  .animation-container {
-    top: 10%;
-  }
-  
-}
-
 /* About Section */
 .about-section {
   padding: 20px 10px; /* Reduced padding for a tighter layout */
@@ -395,6 +395,8 @@ body, html {
   opacity: 1;
   transform: translateY(0);
 }
+
+
 
 /* Loading screen styles */
 #loading-screen {

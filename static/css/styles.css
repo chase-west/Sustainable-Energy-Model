@@ -221,13 +221,16 @@ body, html {
 
 /* Energy Animation */
 .animation-container {
+  overflow: visible;
   position: absolute;
   top: 15%; 
   left: 0;
   width: 100%;
-  height: 70%; 
+  height: auto; 
   z-index: 1;
   overflow: hidden;
+  animation: fadeInUp 1s ease forwards;
+  animation-delay: 0.4s;
 }
 
 .energy-flow {
@@ -260,17 +263,16 @@ body, html {
   }
 }
 
-@media (max-width: 768px) {
-  .animation-container {
-    top: 10%;
-    height: 80%;
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
   }
-  
-  .energy-path, .energy-glow {
-    stroke-width: 2;
+  100% {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
-
 /* About Section */
 .about-section {
   padding: 20px 10px; /* Reduced padding for a tighter layout */

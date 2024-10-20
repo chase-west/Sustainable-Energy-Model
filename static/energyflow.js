@@ -7,7 +7,7 @@ function updateEnergyFlow() {
   const width = window.innerWidth;
 
   energyFlow.setAttribute('viewBox', `0 0 ${width} ${height}`);
-  const curve = `M0,${height/2} Q${width/4},${height/2-100} ${width/2},${height/2} T${width},${height/2}`;
+  const curve = `M0,${height/2} Q${width/4},${height/2-170} ${width/2},${height/2} T${width},${height/2}`;
   energyPath.setAttribute('d', curve);
   energyGlow.setAttribute('d', curve);
 }

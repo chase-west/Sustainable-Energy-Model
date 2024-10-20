@@ -18,6 +18,20 @@ let globalRenewableData = {};
 let topProducers = [];
 let growthRates = {};
 
+
+// Text animation for the instructions
+var i = 0;
+var txt = 'Click on a country'; 
+var speed = 80; 
+
+function typeWriter() {
+  if (i < txt.length) {
+    document.getElementById("instructions-text").innerHTML += txt.charAt(i);
+    i++;
+    setTimeout(typeWriter, speed);
+  }
+}
+
 const world = Globe()
     .globeImageUrl("/static/images/earthbackground.png")
     .lineHoverPrecision(0)
@@ -72,6 +86,7 @@ async function loadCountries() {
         loadingScreen.style.display = 'none'; 
         instructions.style.display = 'block'; 
     }, 600); 
+    typeWriter()
 }
 
 function displaySlider() {

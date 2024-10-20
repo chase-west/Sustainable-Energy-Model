@@ -105,16 +105,15 @@ body, html {
 
 .text-content h1 {
   font-size: 3.5em;
-  margin-bottom: 20px;
+  margin-bottom: 0.1em;
   color: #4ecca3;
   transition-delay: 0s;
 }
 
 .text-content p {
   font-size: 1.2em;
-  margin-bottom: 30px;
+  margin-bottom: 1.7em;
   transition-delay: 0.3s;
-  margin-bottom: 10px; 
 }
 
 #explore-btn {

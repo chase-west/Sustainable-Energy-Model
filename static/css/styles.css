@@ -227,7 +227,6 @@ body, html {
   height: auto; 
   z-index: 1;
   overflow: hidden;
-  animation: fadeInUp 1s ease forwards;
 }
 
 .energy-flow {

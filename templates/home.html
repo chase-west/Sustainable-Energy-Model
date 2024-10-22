@@ -9,6 +9,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="icon" href="/static/images/earthicon.png">
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Eczar:wght@400..800&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="fullpage-container">
@@ -36,23 +39,21 @@
             </section>
 
             <!-- About Section -->
+            <section class="section about-section">
+                <div class="about-content">
+                    <div class="about-text fade-in-slide">
+                        <h2>About Global Renewable Energy Explorer</h2>
+                        <p>Our mission is to provide up-to-date insights into renewable energy production around the globe. Compare historical trends and future predictions to see how the world is transitioning towards sustainable energy sources.</p>
+                        <p>Explore interactive visualizations, analyze data, and gain a deeper understanding of the global shift towards clean energy.</p>
+                    </div>
+                </div>
 
-<section class="section about-section">
-    <div class="about-content">
-        <div class="about-text fade-in-slide">
-            <h2>About Global Renewable Energy Explorer</h2>
-            <p>Our mission is to provide up-to-date insights into renewable energy production around the globe. Compare historical trends and future predictions to see how the world is transitioning towards sustainable energy sources.</p>
-            <p>Explore interactive visualizations, analyze data, and gain a deeper understanding of the global shift towards clean energy.</p>
-        </div>
-        <div class="about-images fade-in-slide">
-            <img src="/static/images/solar.webp" alt="Solar panels" class="about-image">
-            <img src="/static/images/wind.webp" alt="Wind turbines" class="about-image">
-            <img src="/static/images/dam.png" alt="Hydroelectric dam" class="about-image">
-            <img src="/static/images/geo.png" alt="Geothermal energy" class="about-image">
-        </div>
-    </div>
-</section>
-
+                <div class="lightbulb">
+                    <div class="bulb"></div>
+                    <div class="base"></div>
+                    <div class="glow"></div>
+                </div>
+            </section>
 
             <!-- Additional sections here -->
         </div>
@@ -69,11 +70,23 @@
     <script>
         // Explore button functionality
         document.getElementById('explore-btn').addEventListener('click', function() {
-        window.location.href = '/explore';
+            window.location.href = '/explore';
         });
     </script>
 
     <script src="/static/scrollscript.js"></script>
     <script src="/static/energyflow.js"></script>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2024 Global Renewable Energy Explorer. All rights reserved.</p>
+            <ul class="footer-links">
+                
+                <li><a href="https://github.com/chase-west/Sustainable-Energy-Model">Contact</a></li>
+                
+            </ul>
+        </div>
+    </footer>
 </body>
 </html>

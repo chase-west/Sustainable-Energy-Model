@@ -8,6 +8,83 @@ body, html {
   overflow-x: hidden;
 }
 
+/* Lightbulb Container */
+.lightbulb-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  height: 100vh;
+  padding-right: 10vw;
+  position: relative;
+  z-index: 5;
+  flex-basis: 40%;
+  margin-right:100%;
+}
+
+/* Lightbulb */
+.lightbulb {
+  position:relative;
+  z-index: 5;
+  margin-right:25%;
+}
+
+/* Bulb and its parts */
+.bulb {
+  width: 10vw;
+  height: 15vw;
+  background: #ffeb3b;
+  border-radius: 50px 50px 0 0;
+  box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.base {
+  width: 4vw;
+  height: 3vw;
+  background: #666;
+  border-radius: 10px;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.glow {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  width: 20vw;
+  height: 20vw;
+  background: radial-gradient(circle, rgba(255, 255, 0, 0.6) 0%, rgba(255, 255, 0, 0) 70%);
+  border-radius: 50%;
+  transform: translateX(-50%);
+  animation: pulse 1.5s infinite;
+  z-index: -1;
+}
+
+/* Lightbulb pulse animation */
+@keyframes pulse {
+  0%, 100% {
+    transform: translateX(-50%) scale(1);
+  }
+  50% {
+    transform: translateX(-50%) scale(1.15);
+  }
+}
+
+/* Media Query to hide the lightbulb on small screens */
+@media (max-width: 768px) {
+  .lightbulb-container,
+  .lightbulb,
+  .bulb,
+  .glow {
+    display: none !important;
+    visibility: hidden !important;
+  }
+}
+
+
+
+
+
 .fullpage-container {
   height: 100vh;
   position: relative;
@@ -270,113 +347,119 @@ body, html {
   }
 }
 /* About Section */
-.about-section {
-  padding: 20px 10px; /* Reduced padding for a tighter layout */
-  background-color: #16213e;
-}
-
 .about-content {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column; /* Keep column layout for smaller screens */
-  align-items: center; /* Center align content */
+  max-width: 1000px;
+  height: auto;
+  background-color: #0f1a30;
+  padding: 60px 40px;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  margin-right: 20%;  /* Allow more space on the right */
+  margin-left: 0%;  /* Space from the left side */
+  margin-top: 5%;  /* Add top margin to center it vertically more */
+  margin-bottom: 5%;  /* Maintain spacing from the bottom */
+  font-size: larger;
+  transition: box-shadow 0.3s ease-in-out;
 }
 
+/* Flexbox for layout */
+.about-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background-color: #16213e;
+  height: 100vh;
+  box-sizing: border-box;
+  flex-grow: 1;
+  text-align: center;  /* Center text for smaller screens */
+}
+
+/* About Text Styling */
 .about-text {
   flex: 1;
-  text-align: center; /* Centered text */
+  text-align: left;
   color: #4ecca3;
-  padding: 20px; /* Add some padding */
-  margin-bottom: 50px; /* Add margin to separate from images */
-  position: relative; /* Allow for absolute positioning of text */
-  top: -50px; /* Move text higher */
+  padding: 20px;
 }
 
 .about-text h2 {
-  font-size: 3em; /* Base font size */
+  font-size: 2.5em;
   margin-bottom: 20px;
+  font-weight: bold;
 }
 
 .about-text p {
-  font-size: 1.5em; /* Base font size for paragraphs */
-  line-height: 1.6; /* Increased line height for better readability */
+  font-size: 1.3em;
+  line-height: 1.7;
   margin-bottom: 20px;
+  color: #c0c0c0;
 }
 
-.about-images {
-  display: flex;
-  justify-content: center; /* Center images */
-  flex-wrap: wrap;
-  gap: 20px;
+/* Additional styling for hover effects */
+.about-content:hover {
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
 }
 
-.about-image {
-  width: 100%; /* Make images responsive */
-  max-width: 250px; /* Set a maximum width for images */
-  border-radius: 10px;
-  transition: transform 0.3s ease;
+.about-section {
+  background: linear-gradient(135deg, #16213e, #0f1a30);
 }
 
-.about-image:hover {
-  transform: scale(1.1); /* Scale effect on hover */
+/* Text shadow for contrast */
+.about-text h2, .about-text p {
+  text-shadow: 1px 1px 8px rgba(0, 0, 0, 0.5);
 }
 
 /* Responsive Styles */
 @media (max-width: 768px) {
   .about-text {
-      top: -30px; 
+    top: 0;
   }
 
   .about-text h2 {
-      font-size: 2.5em; 
+    font-size: 2em;
   }
 
   .about-text p {
-      font-size: 1.2em; 
+    font-size: 1.1em;
   }
 
-  .about-image {
-      max-width: 200px; 
+  .about-content {
+    margin: 5% 10%;  /* Increase margins to keep content centered */
   }
 }
 
 @media (max-width: 480px) {
   .about-text {
-      top: 0; 
-      padding: 10px; 
+    padding: 10px;
+    text-align: center;  /* Center-align text for smaller screens */
   }
 
   .about-text h2 {
-      font-size: 2em; 
+    font-size: 1.8em;
   }
 
   .about-text p {
-      font-size: 1em; 
+    font-size: 1em;
   }
 
-  .about-image {
-      max-width: 150px; 
+  .about-content {
+    padding: 30px 20px;  /* Reduce padding for smaller screens */
+    margin: 5% 5%;  /* Adjust margins */
   }
 }
-/* Additional Styles for iPhone SE and Smaller Devices */
-@media (max-width: 375px) { 
-  .about-text {
-      top: 0; 
-      padding: 5px;
-      margin-bottom: 
-  }
 
+@media (max-width: 375px) {
   .about-text h2 {
-      font-size: 1.8em; 
+    font-size: 1.6em;
   }
 
   .about-text p {
-      font-size: 0.9em; 
+    font-size: 0.9em;
   }
 
-  .about-image {
-      max-width: 120px; 
+  .about-content {
+    padding: 20px;
   }
 }
 
@@ -681,4 +764,37 @@ input[type="range"]::-ms-thumb {
   input[type="range"] {
     width: 120px; /* Reduce slider width more */
   }
+}
+
+/* Footer Styles */
+.footer {
+  background-color: #0f1a30; /* Dark background */
+  color: #c0c0c0; /* Light text color */
+  text-align: center;
+  padding: 20px 0;
+  position: relative; /* Adjust if needed based on layout */
+}
+
+.footer-content {
+  max-width: 1200px; /* Max width for larger screens */
+  margin: 0 auto; /* Center the footer content */
+}
+
+.footer-links {
+  list-style: none; /* Remove default list styles */
+  padding: 0;
+}
+
+.footer-links li {
+  display: inline; /* Display links inline */
+  margin: 0 15px; /* Space between links */
+}
+
+.footer-links a {
+  color: #4ecca3; /* Link color */
+  text-decoration: none; /* Remove underline */
+}
+
+.footer-links a:hover {
+  text-decoration: underline; /* Underline on hover */
 }

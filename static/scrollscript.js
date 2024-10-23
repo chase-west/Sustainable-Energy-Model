@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       currentSectionIndex = index;
 
-      setTimeout(() => isTransitioning = false, 700); // Delay to match transition
+      setTimeout(() => isTransitioning = false, 700); 
   }
 
   function handleScroll(deltaY) {

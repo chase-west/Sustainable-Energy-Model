@@ -5,85 +5,8 @@ body, html {
   font-family: 'IBM Plex Sans', sans-serif;
   background-color: #0b132b;
   color: #fff;
-  overflow-x: hidden;
+  overflow: hidden; /* Prevent default scrolling */
 }
-
-/* Lightbulb Container */
-.lightbulb-container {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  height: 100vh;
-  padding-right: 10vw;
-  position: relative;
-  z-index: 5;
-  flex-basis: 40%;
-  margin-right:100%;
-}
-
-/* Lightbulb */
-.lightbulb {
-  position:relative;
-  z-index: 5;
-  margin-right:25%;
-}
-
-/* Bulb and its parts */
-.bulb {
-  width: 10vw;
-  height: 15vw;
-  background: #ffeb3b;
-  border-radius: 50px 50px 0 0;
-  box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.5);
-}
-
-.base {
-  width: 4vw;
-  height: 3vw;
-  background: #666;
-  border-radius: 10px;
-  position: relative;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.glow {
-  position: absolute;
-  top: 10px;
-  left: 50%;
-  width: 20vw;
-  height: 20vw;
-  background: radial-gradient(circle, rgba(255, 255, 0, 0.6) 0%, rgba(255, 255, 0, 0) 70%);
-  border-radius: 50%;
-  transform: translateX(-50%);
-  animation: pulse 1.5s infinite;
-  z-index: -1;
-}
-
-/* Lightbulb pulse animation */
-@keyframes pulse {
-  0%, 100% {
-    transform: translateX(-50%) scale(1);
-  }
-  50% {
-    transform: translateX(-50%) scale(1.15);
-  }
-}
-
-/* Media Query to hide the lightbulb on small screens */
-@media (max-width: 768px) {
-  .lightbulb-container,
-  .lightbulb,
-  .bulb,
-  .glow {
-    display: none !important;
-    visibility: hidden !important;
-  }
-}
-
-
-
-
 
 .fullpage-container {
   height: 100vh;
@@ -346,123 +269,259 @@ body, html {
     transform: translateY(0);
   }
 }
-/* About Section */
-.about-content {
-  max-width: 1000px;
-  height: auto;
-  background-color: #0f1a30;
-  padding: 60px 40px;
-  border-radius: 15px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-  margin-right: 20%;  /* Allow more space on the right */
-  margin-left: 0%;  /* Space from the left side */
-  margin-top: 5%;  /* Add top margin to center it vertically more */
-  margin-bottom: 5%;  /* Maintain spacing from the bottom */
-  font-size: larger;
-  transition: box-shadow 0.3s ease-in-out;
-}
 
-/* Flexbox for layout */
 .about-section {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0a192f 0%, #112240 100%);
+  overflow: hidden;
   display: flex;
-  justify-content: center;
   align-items: center;
-  padding: 20px;
-  background-color: #16213e;
-  height: 100vh;
-  box-sizing: border-box;
-  flex-grow: 1;
-  text-align: center;  /* Center text for smaller screens */
+  justify-content: center;
 }
 
-/* About Text Styling */
+/* Animated Background */
+.animated-bg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.particle {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  background: linear-gradient(45deg, #4ecca3 10%, transparent 90%);
+  border-radius: 50%;
+  filter: blur(40px);
+  animation: float 15s infinite;
+  opacity: 0.2;
+}
+
+.particle:nth-child(1) {
+  top: 20%;
+  left: 20%;
+  animation-delay: 0s;
+}
+
+.particle:nth-child(2) {
+  top: 60%;
+  left: 50%;
+  animation-delay: -5s;
+}
+
+.particle:nth-child(3) {
+  top: 30%;
+  left: 70%;
+  animation-delay: -10s;
+}
+
+@keyframes float {
+  0%, 100% {
+      transform: translate(0, 0);
+  }
+  25% {
+      transform: translate(100px, 100px);
+  }
+  50% {
+      transform: translate(0, 200px);
+  }
+  75% {
+      transform: translate(-100px, 100px);
+  }
+}
+
+/* Main Content Container */
+.about-container {
+  width: 90%;
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 4rem;
+  position: relative;
+  z-index: 1;
+  padding: 4rem 2rem;
+}
+
+/* Text Content */
 .about-text {
-  flex: 1;
-  text-align: left;
+  color: #e6f1ff;
+}
+
+.section-subtitle {
   color: #4ecca3;
-  padding: 20px;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 1rem;
+  display: block;
 }
 
 .about-text h2 {
-  font-size: 2.5em;
-  margin-bottom: 20px;
-  font-weight: bold;
+  font-size: 3rem;
+  background: linear-gradient(90deg, #4ecca3, #64ffda);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 1.5rem;
+  line-height: 1.2;
 }
 
-.about-text p {
-  font-size: 1.3em;
-  line-height: 1.7;
-  margin-bottom: 20px;
-  color: #c0c0c0;
+.main-description {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #a8b2d1;
+  margin-bottom: 3rem;
 }
 
-/* Additional styling for hover effects */
-.about-content:hover {
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+/* Feature Cards */
+.feature-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
 }
 
-.about-section {
-  background: linear-gradient(135deg, #16213e, #0f1a30);
+.feature-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  padding: 1.5rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Text shadow for contrast */
-.about-text h2, .about-text p {
-  text-shadow: 1px 1px 8px rgba(0, 0, 0, 0.5);
+.feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(78, 204, 163, 0.1);
 }
 
-/* Responsive Styles */
+.card-icon {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.feature-card h3 {
+  color: #4ecca3;
+  margin-bottom: 0.5rem;
+}
+
+.feature-card p {
+  color: #a8b2d1;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+/* Visual Element */
+.about-visual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.energy-sphere {
+  position: relative;
+  width: 300px;
+  height: 300px;
+}
+
+.sphere-core {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100px;
+  height: 100px;
+  background: radial-gradient(circle at 30% 30%, #4ecca3, #112240);
+  border-radius: 50%;
+  box-shadow: 0 0 60px rgba(78, 204, 163, 0.4);
+  animation: pulse 4s ease-in-out infinite;
+}
+
+.sphere-orbit {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 2px solid rgba(78, 204, 163, 0.1);
+  border-radius: 50%;
+  animation: rotate 20s linear infinite;
+}
+
+.sphere-orbit.delayed {
+  animation: rotate 15s linear infinite;
+  border-color: rgba(78, 204, 163, 0.2);
+  transform: rotate(60deg);
+}
+
+@keyframes pulse {
+  0%, 100% {
+      transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+      transform: translate(-50%, -50%) scale(1.1);
+  }
+}
+
+@keyframes rotate {
+  from {
+      transform: rotate(0deg);
+  }
+  to {
+      transform: rotate(360deg);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .about-container {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .about-visual {
+      order: -1;
+  }
+  
+  .energy-sphere {
+      width: 250px;
+      height: 250px;
+  }
+}
+
 @media (max-width: 768px) {
-  .about-text {
-    top: 0;
-  }
-
   .about-text h2 {
-    font-size: 2em;
+      font-size: 2.5rem;
   }
-
-  .about-text p {
-    font-size: 1.1em;
+  
+  .feature-cards {
+      grid-template-columns: 1fr;
   }
-
-  .about-content {
-    margin: 5% 10%;  /* Increase margins to keep content centered */
+  
+  .energy-sphere {
+      width: 200px;
+      height: 200px;
+  }
+  
+  .sphere-core {
+      width: 80px;
+      height: 80px;
   }
 }
 
 @media (max-width: 480px) {
-  .about-text {
-    padding: 10px;
-    text-align: center;  /* Center-align text for smaller screens */
+  .about-container {
+      padding: 2rem 1rem;
   }
-
+  
   .about-text h2 {
-    font-size: 1.8em;
+      font-size: 2rem;
   }
-
-  .about-text p {
-    font-size: 1em;
-  }
-
-  .about-content {
-    padding: 30px 20px;  /* Reduce padding for smaller screens */
-    margin: 5% 5%;  /* Adjust margins */
+  
+  .main-description {
+      font-size: 1rem;
   }
 }
-
-@media (max-width: 375px) {
-  .about-text h2 {
-    font-size: 1.6em;
-  }
-
-  .about-text p {
-    font-size: 0.9em;
-  }
-
-  .about-content {
-    padding: 20px;
-  }
-}
-
 
 /* Scroll Animations */
 .fade-in {

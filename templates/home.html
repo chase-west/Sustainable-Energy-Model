@@ -12,7 +12,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Eczar:wght@400..800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/locomotive-scroll/4.1.5/locomotive-scroll.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.min.css" />
 </head>
 <body>
     <div class="fullpage-container" data-scroll-container>
@@ -90,32 +90,28 @@
 
             <!-- Additional sections here -->
         </div>
+
+         <!-- Footer Section -->
+        <footer class="footer" data-scroll-section>
+            <div class="footer-content">
+                <p>&copy; 2024 Global Renewable Energy Explorer. All rights reserved.</p>
+                <ul class="footer-links">
+                    <li><a href="https://github.com/chase-west/Sustainable-Energy-Model">Contact</a></li>
+                </ul>
+            </div>
+        </footer>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/locomotive-scroll/4.1.5/locomotive-scroll.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.min.js"></script>
+    <script src="/static/scroll.js"></script>
+    <script src="/static/energyflow.js"></script>
+
     <script>
         // Explore button functionality
         document.getElementById('explore-btn').addEventListener('click', function() {
             window.location.href = '/explore';
         });
-
-        // Initialize Locomotive Scroll
-        const scroll = new LocomotiveScroll({
-            el: document.querySelector('[data-scroll-container]'),
-            smooth: true
-        });
     </script>
 
-    <script src="/static/energyflow.js"></script>
-
-    <!-- Footer Section -->
-    <footer class="footer">
-        <div class="footer-content">
-            <p>&copy; 2024 Global Renewable Energy Explorer. All rights reserved.</p>
-            <ul class="footer-links">
-                <li><a href="https://github.com/chase-west/Sustainable-Energy-Model">Contact</a></li>
-            </ul>
-        </div>
-    </footer>
 </body>
 </html>

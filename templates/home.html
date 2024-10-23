@@ -94,15 +94,15 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/locomotive-scroll/4.1.5/locomotive-scroll.min.js"></script>
     <script>
+        // Explore button functionality
+        document.getElementById('explore-btn').addEventListener('click', function() {
+            window.location.href = '/explore';
+        });
+
         // Initialize Locomotive Scroll
         const scroll = new LocomotiveScroll({
             el: document.querySelector('[data-scroll-container]'),
             smooth: true
-        });
-
-        // Explore button functionality
-        document.getElementById('explore-btn').addEventListener('click', function() {
-            window.location.href = '/explore';
         });
     </script>
 

@@ -199,7 +199,7 @@ body, html {
 
 .about-section {
   min-height: 100vh;
-  background: linear-gradient(135deg, #0a192f 0%, #112240 100%);
+  background: radial-gradient(circle, rgba(43, 45, 66, 1), rgba(10, 24, 49, 1));
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -821,33 +821,33 @@ input[type="range"]::-ms-thumb {
 
 /* Footer Styles */
 .footer {
-  background-color: #0f1a30; /* Dark background */
-  color: #c0c0c0; /* Light text color */
+  background: linear-gradient(135deg, #0a192f 0%, #112240 100%);
+  color: #c0c0c0;
   text-align: center;
   padding: 20px 0;
-  position: relative; /* Adjust if needed based on layout */
+  position: relative; 
 }
 
 .footer-content {
-  max-width: 1200px; /* Max width for larger screens */
-  margin: 0 auto; /* Center the footer content */
+  max-width: 1200px; 
+  margin: 0 auto; 
 }
 
 .footer-links {
-  list-style: none; /* Remove default list styles */
+  list-style: none; 
   padding: 0;
 }
 
 .footer-links li {
-  display: inline; /* Display links inline */
-  margin: 0 15px; /* Space between links */
+  display: inline; 
+  margin: 0 15px; 
 }
 
 .footer-links a {
-  color: #4ecca3; /* Link color */
-  text-decoration: none; /* Remove underline */
+  color: #4ecca3; 
+  text-decoration: none;
 }
 
 .footer-links a:hover {
-  text-decoration: underline; /* Underline on hover */
+  text-decoration: underline;
 }

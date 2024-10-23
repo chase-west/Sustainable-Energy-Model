@@ -18,7 +18,7 @@
     <div class="fullpage-container" data-scroll-container>
         <div class="sections-wrapper">
             <!-- Hero Section -->
-            <section class="section hero-section" data-scroll-section>
+            <section class="section hero-section" data-scroll>
                 <div class="animation-container">
                     <svg class="energy-flow" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice">
                         <defs>
@@ -32,7 +32,7 @@
                         <path class="energy-path" d="M0,500 Q250,450 500,500 T1000,500" />
                     </svg>
                 </div>
-                <div class="text-content">
+                <div class="text-content" data-scroll data-scroll-speed="3">
                     <h1>Global Renewable Energy Explorer</h1>
                     <p>Discover and compare renewable energy production across the world from 2024 to 2124.</p>
                     <button id="explore-btn">Start Exploring</button>
@@ -40,7 +40,7 @@
             </section>
 
             <!-- About Section -->
-            <section class="section about-section" data-scroll-section>
+            <section class="section about-section" data-scroll>
                 <!-- Animated Background -->
                 <div class="animated-bg">
                     <div class="particle"></div>
@@ -57,7 +57,7 @@
                             <p class="main-description">Our mission is to provide up-to-date insights into renewable energy production around the globe. Compare historical trends and future predictions to see how the world is transitioning towards sustainable energy sources.</p>
                             
                             <!-- Feature Cards -->
-                            <div class="feature-cards">
+                            <div class="feature-cards" data-scroll data-scroll-direction="horizontal" data-scroll-speed="-3">
                                 <div class="feature-card">
                                     <div class="card-icon">🌍</div>
                                     <h3>Global Coverage</h3>
@@ -78,7 +78,7 @@
                     </div>
                     
                     <!-- Visual Element -->
-                    <div class="about-visual">
+                    <div class="about-visual" data-scroll data-scroll-speed="3">
                         <div class="energy-sphere">
                             <div class="sphere-core"></div>
                             <div class="sphere-orbit"></div>
@@ -92,8 +92,8 @@
         </div>
 
          <!-- Footer Section -->
-        <footer class="footer" data-scroll-section>
-            <div class="footer-content">
+        <footer class="footer">
+            <div class="footer-content" data-scroll>
                 <p>&copy; 2024 Global Renewable Energy Explorer. All rights reserved.</p>
                 <ul class="footer-links">
                     <li><a href="https://github.com/chase-west/Sustainable-Energy-Model">Contact</a></li>

@@ -12,12 +12,13 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Eczar:wght@400..800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/locomotive-scroll/4.1.5/locomotive-scroll.min.css" />
 </head>
 <body>
-    <div class="fullpage-container">
+    <div class="fullpage-container" data-scroll-container>
         <div class="sections-wrapper">
             <!-- Hero Section -->
-            <section class="section hero-section">
+            <section class="section hero-section" data-scroll-section>
                 <div class="animation-container">
                     <svg class="energy-flow" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice">
                         <defs>
@@ -39,14 +40,14 @@
             </section>
 
             <!-- About Section -->
-            <section class="section about-section">
+            <section class="section about-section" data-scroll-section>
                 <!-- Animated Background -->
                 <div class="animated-bg">
                     <div class="particle"></div>
                     <div class="particle"></div>
                     <div class="particle"></div>
                 </div>
-            
+                
                 <!-- About Section -->
                 <div class="about-container">
                     <div class="about-content">
@@ -91,7 +92,14 @@
         </div>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/locomotive-scroll/4.1.5/locomotive-scroll.min.js"></script>
     <script>
+        // Initialize Locomotive Scroll
+        const scroll = new LocomotiveScroll({
+            el: document.querySelector('[data-scroll-container]'),
+            smooth: true
+        });
+
         // Explore button functionality
         document.getElementById('explore-btn').addEventListener('click', function() {
             window.location.href = '/explore';
@@ -105,9 +113,7 @@
         <div class="footer-content">
             <p>&copy; 2024 Global Renewable Energy Explorer. All rights reserved.</p>
             <ul class="footer-links">
-                
                 <li><a href="https://github.com/chase-west/Sustainable-Energy-Model">Contact</a></li>
-                
             </ul>
         </div>
     </footer>

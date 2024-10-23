@@ -346,6 +346,7 @@ body, html {
   display: flex;
   align-items: center;
   justify-content: center;
+  min-height: 400px;
 }
 
 .energy-sphere {
@@ -373,32 +374,98 @@ body, html {
   left: 0;
   width: 100%;
   height: 100%;
-  border: 2px solid rgba(78, 204, 163, 0.1);
+  border: 1px solid rgba(78, 204, 163, 0.1);
   border-radius: 50%;
-  animation: rotate 20s linear infinite;
+  animation: rotate1 20s linear infinite;
+}
+
+/* Satellite 1 */
+.sphere-orbit::before {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 8px;
+  background: #4ecca3;
+  top: 50%;
+  transform: translateY(-50%);
+  box-shadow: 0 0 20px #4ecca3;
+  clip-path: polygon(0% 30%, 20% 30%, 20% 0%, 80% 0%, 80% 30%, 100% 30%, 100% 70%, 80% 70%, 80% 100%, 20% 100%, 20% 70%, 0% 70%);
+}
+
+.sphere-orbit::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 2px;
+  background: #4ecca3;
+  top: 50%;
+  transform: translateY(-50%);
+  left: -2px;
+  box-shadow: 0 0 10px #4ecca3;
+  opacity: 0.6;
 }
 
 .sphere-orbit.delayed {
-  animation: rotate 15s linear infinite;
+  animation: rotate2 15s linear infinite;
   border-color: rgba(78, 204, 163, 0.2);
-  transform: rotate(60deg);
 }
 
-@keyframes pulse {
-  0%, 100% {
-      transform: translate(-50%, -50%) scale(1);
-  }
-  50% {
-      transform: translate(-50%, -50%) scale(1.1);
-  }
+/* Satellite 2 */
+.sphere-orbit.delayed::before {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 8px;
+  background: #4ecca3;
+  top: 50%;
+  transform: translateY(-50%);
+  box-shadow: 0 0 20px #4ecca3;
+  clip-path: polygon(0% 30%, 20% 30%, 20% 0%, 80% 0%, 80% 30%, 100% 30%, 100% 70%, 80% 70%, 80% 100%, 20% 100%, 20% 70%, 0% 70%);
 }
 
-@keyframes rotate {
+.sphere-orbit.delayed::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 2px;
+  background: #4ecca3;
+  top: 50%;
+  transform: translateY(-50%);
+  left: -2px;
+  box-shadow: 0 0 10px #4ecca3;
+  opacity: 0.6;
+}
+
+@keyframes rotate1 {
   from {
       transform: rotate(0deg);
   }
   to {
       transform: rotate(360deg);
+  }
+}
+
+@keyframes rotate2 {
+  from {
+      transform: rotate(180deg);
+  }
+  to {
+      transform: rotate(540deg);
+  }
+}
+
+@keyframes pulse {
+  0% {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 0.8;
+  }
+  50% {
+      transform: translate(-50%, -50%) scale(1.1);
+      opacity: 1;
+  }
+  100% {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 0.8;
   }
 }
 

@@ -192,6 +192,7 @@ function updateInsightsUI(country, year) {
 function getGlobalRanking(country, year) {
     const globalData = globalRenewableData[year];
     const sortedCountries = Object.entries(globalData)
+        .filter(([c, _]) => c.toLowerCase() !== 'world')
         .sort((a, b) => b[1] - a[1]);
     return sortedCountries.findIndex(([c, _]) => c === country) + 1;
 }

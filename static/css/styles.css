@@ -20,13 +20,6 @@ body, html {
   overflow: hidden;
 }
 
-/* Text content animation */
-.text-content h1, .text-content p, #explore-btn {
-  opacity: 0;
-  transform: translateY(30px);
-  animation: fadeInUp 1s ease forwards;
-}
-
 .text-content {
   z-index: 2;
   max-width: 1200px;
@@ -183,17 +176,6 @@ body, html {
 @keyframes flowAnimation {
   to {
     stroke-dashoffset: -1000;
-  }
-}
-
-@keyframes fadeInUp {
-  0% {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
   }
 }
 

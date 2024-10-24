@@ -286,10 +286,11 @@ body, html {
 /* Feature Cards */
 .feature-cards {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(3, 1fr); /* Set 3 equal-width columns */
   gap: 1.5rem;
   margin-top: 2rem;
 }
+
 
 .feature-card {
   background: rgba(255, 255, 255, 0.03);
@@ -832,4 +833,95 @@ input[type="range"]::-ms-thumb {
 
 .footer-links a:hover {
   text-decoration: underline;
+}
+
+/* Data Sources Section */
+.data-sources-section {
+  min-height: 100vh;
+  background: radial-gradient(circle, rgba(43, 45, 66, 1), rgba(10, 24, 49, 1));
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Main Content Container */
+.data-sources-container {
+  width: 90%;
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 4rem;
+  position: relative;
+  z-index: 1;
+  padding: 4rem 2rem;
+}
+
+/* Text Content */
+.data-sources-text {
+  color: #e6f1ff;
+}
+
+.data-sources-text h2 {
+  font-size: 2.8rem;
+  background: linear-gradient(90deg, #4ecca3, #64ffda);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 1.5rem;
+}
+
+.data-sources-list {
+  color: #a8b2d1;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  list-style-type: none;
+  padding: 0;
+}
+
+.data-sources-list li {
+  margin-bottom: 1.5rem;
+  padding-left: 1rem;
+  position: relative;
+}
+
+.data-sources-list li::before {
+  content: '•';
+  color: #4ecca3;
+  font-size: 1.2rem;
+  position: absolute;
+  left: -1rem;
+  top: 0.1rem;
+}
+
+/* Visual Element */
+.data-sources-visual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.
+
+/* Animations */
+@keyframes pulse {
+  0%, 100% {
+      transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+      transform: translate(-50%, -50%) scale(1.1);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .data-sources-container {
+      grid-template-columns: 1fr;
+      text-align: center;
+  }
+  
+  .data-globe {
+      width: 240px;
+      height: 240px;
+  }
 }

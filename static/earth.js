@@ -179,7 +179,7 @@ function updateInsightsUI(country, year) {
     `;
 
     if (year > 2024) {
-        insightsHTML += `<p>Growth Rate: ${growthRates[country]?.toFixed(2) || 'N/A'}%</p>`;
+        insightsHTML += `<p>Growth Rate (from previous year): ${growthRates[country]?.toFixed(2) || 'N/A'}%</p>`;
     }
 
     insightsHTML += `

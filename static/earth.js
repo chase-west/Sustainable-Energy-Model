@@ -95,7 +95,7 @@ function showInstructions() {
         // Auto-hide after 3 seconds
         setTimeout(() => {
             hideInstructions();
-        }, 3000);
+        }, 2000);
     }
 }
 

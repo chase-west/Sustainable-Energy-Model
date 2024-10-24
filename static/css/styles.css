@@ -476,11 +476,33 @@ body, html {
   top: 0.1rem;
 }
 
+.data-sources-visual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px; 
+  flex-grow: 1; 
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .data-sources-container {
       grid-template-columns: 1fr;
       text-align: center;
+  }
+
+  .data-sources-visual {
+    min-height: 200px; 
+    width: 80%;
+    margin: 0 auto; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+  }
+  
+  #energyChart {
+    width: 100%;
+    height: auto; 
   }
 }
 

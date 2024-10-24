@@ -13,6 +13,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Eczar:wght@400..800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <div class="fullpage-container" data-scroll-container>
@@ -88,47 +89,49 @@
                 </div>
             </section>
 
-            <!-- Additional sections here -->
              <!-- Data Sources Section -->
-<section class="section data-sources-section" data-scroll>
-    <!-- Animated Background -->
-    <div class="animated-bg">
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-    </div>
-    
-    <!-- Data Sources Container -->
-    <div class="data-sources-container">
-        <div class="data-sources-content">
-            <div class="data-sources-text">
-                <span class="section-subtitle">Data Sources</span>
-                <h2>Where We Got Our Data</h2>
-                <p class="main-description">Our predictions are built on advanced statistical models and real-time data integration. Here's how we collect and process our renewable energy data:</p>
+             <section class="section data-sources-section" data-scroll>
+                <div class="animated-bg">
+                    <div class="particle"></div>
+                    <div class="particle"></div>
+                    <div class="particle"></div>
+                </div>
                 
-                  <!-- Data Source Details -->
-                  <div class="feature-cards" data-scroll data-scroll-direction="horizontal" data-scroll-speed="-3">
-                    <div class="feature-card">
-                        <div class="card-icon">📈</div>
-                        <h3>Meta Prophet Data Prediction</h3>
-                        <p>We utilize Meta's Prophet procedure, a powerful forecasting tool, to predict renewable energy production for each country. The prediction data is stored in a MongoDB database for real-time accessibility, while the original data from 'Our World in Data' is stored in a CSV file for future analysis and visualization.</p>
+                <!-- Data Sources Container -->
+                <div class="data-sources-container">
+                    <div class="data-sources-content">
+                        <div class="data-sources-text">
+                            <span class="section-subtitle">Data Sources</span>
+                            <h2>Where We Got Our Data</h2>
+                            <p class="main-description">Our predictions are built on advanced statistical models and real-time data integration. Here's how we collect and process our renewable energy data:</p>
+                            
+                            <!-- Data Source Details -->
+                            <div class="feature-cards" data-scroll data-scroll-direction="horizontal" data-scroll-speed="-3">
+                                <div class="feature-card">
+                                    <div class="card-icon">📈</div>
+                                    <h3>Meta Prophet Data Prediction</h3>
+                                    <p>We utilize Meta's Prophet procedure, a powerful forecasting tool...</p>
+                                </div>
+                                <div class="feature-card">
+                                    <div class="card-icon">💾</div>
+                                    <h3>Backend Data Fetching</h3>
+                                    <p>Our system fetches prediction data from a Flask backend...</p>
+                                </div>
+                                <div class="feature-card">
+                                    <div class="card-icon">📊</div>
+                                    <h3>Our World in Data</h3>
+                                    <p>Our complete Energy dataset is maintained by Our World in Data...</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="feature-card">
-                        <div class="card-icon">💾</div>
-                        <h3>Backend Data Fetching</h3>
-                        <p>Our system fetches prediction data from a Flask backend, which is connected to an online MongoDB database. This setup allows us to ensure that data is always up-to-date and accessible in real-time.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="card-icon">📊</div>
-                        <h3>Our World in Data</h3>
-                        <p>Our complete Energy dataset is maintained by Our World in Data, including metrics on energy consumption, energy mix, and electricity mix. The dataset is updated regularly and is available in CSV, XLSX, and JSON formats for detailed analysis.</p>
+                    
+                    <!-- Visual Element -->
+                    <div class="data-sources-visual" data-scroll data-scroll-speed="3">
+                        <canvas id="energyChart" width="400" height="400"></canvas>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-    <div class="about-visual" data-scroll data-scroll-speed="3"></div>
-</section>
+            </section>
         </div>
 
          <!-- Footer Section -->
@@ -145,6 +148,55 @@
     <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.min.js"></script>
     <script src="/static/scroll.js"></script>
     <script src="/static/energyflow.js"></script>
+    <script>
+    // Get the canvas context
+    const ctx = document.getElementById('energyChart').getContext('2d');
+
+    // Define the chart
+    const energyChart = new Chart(ctx, {
+        type: 'line', // You can change this to 'bar', 'pie', etc.
+        data: {
+            labels: ['2024', '2034', '2044', '2054', '2064', '2074', '2084', '2094', '2104', '2114', '2124'],
+            datasets: [{
+                label: 'Renewable Energy Production (TWh)',
+                data: [500, 800, 1000, 1300, 1700, 2000, 2200, 2600, 3000, 3500, 4000],
+                backgroundColor: 'rgba(78, 204, 163, 0.2)',
+                borderColor: '#4ecca3',
+                borderWidth: 2,
+                fill: true,
+                tension: 0.4 // Smooths the line
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Year',
+                        color: '#e6f1ff'
+                    }
+                },
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Energy Production (TWh)',
+                        color: '#e6f1ff'
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    labels: {
+                        color: '#e6f1ff'
+                    }
+                }
+            }
+        }
+    });
+</script>
+
 
     <script>
         // Explore button functionality

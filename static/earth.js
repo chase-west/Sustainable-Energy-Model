@@ -6,9 +6,8 @@ const yearSlider = document.getElementById('yearSlider');
 const toggleButton = document.getElementById('toggleInsights');
 let sliderTimer;
 const loadingScreen = document.getElementById('loading-screen');
-const instructions = document.getElementById('instructions');
-const uniformColor = '#34A56F'; // Uniform color for all countries
-const colorScale = d3.scaleLinear().domain([0, 4000]) .range(['red', 'yellow']); 
+const uniformColor = '#34A56F';
+const colorScale = d3.scaleLinear().domain([0, 4000]).range(['red', 'yellow']); 
 
 let countryData = {}; 
 let countryYears = {}; 
@@ -17,20 +16,6 @@ let selectedCountry = null;
 let globalRenewableData = {};
 let topProducers = [];
 let growthRates = {};
-
-
-// Text animation for the instructions
-var i = 0;
-var txt = 'Click on a country'; 
-var speed = 80; 
-
-function typeWriter() {
-  if (i < txt.length) {
-    document.getElementById("instructions-text").innerHTML += txt.charAt(i);
-    i++;
-    setTimeout(typeWriter, speed);
-  }
-}
 
 const world = Globe()
     .globeImageUrl("/static/images/earthbackground.png")
@@ -42,7 +27,6 @@ const world = Globe()
         const countryName = nameMapping[hoverD.properties.ADMIN] || hoverD.properties.ADMIN;
         selectedCountry = countryName;
 
-        // Display the slider the first time a country is clicked
         if (!sliderDisplayed) {
             displaySlider();
             sliderDisplayed = true; 
@@ -61,32 +45,37 @@ const world = Globe()
     .polygonsTransitionDuration(600)
     (document.getElementById('globe'));
 
-const nameMapping = {
-    "United States of America": "United States",
-    "United Republic of Tanzania": "Tanzania",
-    "Democratic Republic of the Congo": "Democratic Republic of Congo",
-    "The Bahamas": "Bahamas",
-    "Ivory Coast": "Cote d'Ivoire",
-    "Republic of the Congo": "Congo",
-    "eSwatini": "Eswatini",
-    "Northern Cyprus": "Cyprus",
-    "Somaliland": "Somalia",
-    "Republic of Serbia": "Serbia"
-};
+    const nameMapping = {
+        "United States of America": "United States",
+        "United Republic of Tanzania": "Tanzania",
+        "Democratic Republic of the Congo": "Democratic Republic of Congo",
+        "The Bahamas": "Bahamas",
+        "Ivory Coast": "Cote d'Ivoire",
+        "Republic of the Congo": "Congo",
+        "eSwatini": "Eswatini",
+        "Northern Cyprus": "Cyprus",
+        "Somaliland": "Somalia",
+        "Republic of Serbia": "Serbia"
+    };
 
 async function loadCountries() {
-    const res = await fetch('/static/model/ne_110m_admin_0_countries.geojson');
-    const countries = await res.json();
+    try {
+        const res = await fetch('/static/model/ne_110m_admin_0_countries.geojson');
+        const countries = await res.json();
 
-    // Update the globe with the countries
-    world.polygonsData(countries.features.filter(d => d.properties.ISO_A2 !== 'AQ'));
+        // Update the globe with the countries
+        world.polygonsData(countries.features.filter(d => d.properties.ISO_A2 !== 'AQ'));
 
-    // Delay hiding the loading screen to allow transitions to appear
-    setTimeout(() => {
-        loadingScreen.style.display = 'none'; 
-        instructions.style.display = 'block'; 
-    }, 600); 
-    typeWriter()
+        // Hide loading screen with animation
+        loadingScreen.classList.add('hidden');
+        
+        // Show instructions after loading screen fades
+        setTimeout(() => {
+            showInstructions();
+        }, 600);
+    } catch (error) {
+        console.error('Error loading countries:', error);
+    }
 }
 
 function displaySlider() {
@@ -94,8 +83,27 @@ function displaySlider() {
     Array.from(sliderContainers).forEach(container => {
         container.style.display = 'block';
     });
-    toggleButton.style.display = 'block'
-    instructions.style.display = 'none';
+    toggleButton.style.display = 'block';
+    hideInstructions(); // Hide instructions when slider appears
+}
+
+// Show/hide instructions functions
+function showInstructions() {
+    const container = document.querySelector('.instructions-container');
+    if (container) {
+        container.classList.add('visible');
+        // Auto-hide after 3 seconds
+        setTimeout(() => {
+            hideInstructions();
+        }, 3000);
+    }
+}
+
+function hideInstructions() {
+    const container = document.querySelector('.instructions-container');
+    if (container) {
+        container.classList.remove('visible');
+    }
 }
 
 let currentYear = 2024; 

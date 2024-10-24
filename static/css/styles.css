@@ -526,14 +526,20 @@ body, html {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
-  border-radius: 15px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  z-index: 2000; /* Higher than instructions */
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.6s ease-out;
+}
+
+#loading-screen.hidden {
+  opacity: 0;
+  visibility: hidden;
 }
 
 #earth-icon {
   width: 100px;
-  height: auto; 
+  height: auto;
   animation: spin 2s linear infinite;
 }
 
@@ -542,19 +548,53 @@ body, html {
   100% { transform: rotate(360deg); }
 }
 
+
 /* Instructions styles */
-#instructions {
-  display: none;
-  position: absolute;
-  z-index: 1;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 2em;
-  color: #fcfffe;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-  pointer-events: none;
-  user-select: none;
+.instructions-container {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease-in-out;
+  z-index: 1500;
+}
+
+.instructions-container.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.instructions-content {
+  padding: 2rem;
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transform: translateY(20px);
+  transition: transform 0.3s ease-out;
+}
+
+.instructions-container.visible .instructions-content {
+  transform: translateY(0);
+}
+
+.instructions-text {
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0;
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.instructions-container.visible .instructions-text {
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 0.3s ease-out 0.2s;
 }
 
 
@@ -746,27 +786,23 @@ input[type="range"]::-ms-thumb {
   transform: scale(1.1);
 }
 
-
-/* Styles for smaller viewports */
-@media (max-width: 1056px) {
-  #instructions {
-    font-size: 1.5em;
-  }
-}
-
-
 @media (max-width: 768px) {
   body {
     font-size: 14px; /* Reduce font size for smaller screens */
   }
 
-  #instructions {
-    font-size: 1em;
-  }
-
   .slider-container {
     font-size: 1.2em; /* Scale down slider container font size */
     padding: 15px; /* Adjust padding */
+  }
+
+  .instructions-content {
+    padding: 1.5rem;
+    border-radius: 0.8rem;
+  }
+
+  .instructions-text {
+    font-size: 2rem; 
   }
 
   .renewable-energy-display {
@@ -783,13 +819,18 @@ input[type="range"]::-ms-thumb {
     font-size: 12px; /* Further reduce font size for very small screens */
   }
 
-  #instructions {
-    font-size: 0.8em;
-  }
-
   .slider-container {
     font-size: 1em; /* Further scale down slider container font size */
     padding: 10px; /* Adjust padding */
+  }
+
+  .instructions-content {
+    padding: 1rem;
+    border-radius: 0.6rem;
+  }
+
+  .instructions-text {
+    font-size: 1.5rem; 
   }
 
   .renewable-energy-display {

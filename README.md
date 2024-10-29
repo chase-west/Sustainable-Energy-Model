@@ -1,5 +1,6 @@
 # Visit the site here! 
-[Production Website](https://sustainable-energy-model.onrender.com)
+[Production Website](https://sustainable-energy-model.onrender.com)                         
+          Note: May take a minute or two to spin up as it's hosted for free.
 
 # Features
 - Meta Prophet Data Prediction: Utilizes Meta's Prophet procedure to predict renewable energy production for each country.
